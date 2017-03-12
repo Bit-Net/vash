@@ -1,0 +1,1192 @@
+*
+{
+    font-size: BODY_FONT_SIZE;
+    color: black;
+    font-family: MAIN_FONTSTACK;
+}
+
+/* Generic whole app styles */
+QWidget
+{
+    font-family: MAIN_FONTSTACK;
+}
+
+BitcoinGUI
+{
+   background-image: url(Res/ui/mainwnd.jpg) 0 0 0 0 stretch stretch;
+   border:2px solid #D0D0D0;
+   border-radius:2px;
+}
+
+OverviewPage{ border: 0px;  background-color: rgba(255, 255, 255, 50%); }
+OverviewPage > #frame_2{  max-height: 400px; }
+#ovframe_0, #ovframe_1{ background:transparent; }
+
+SendCoinsDialog{ background-color: rgba(255, 255, 255, 50%); }
+
+QDialog
+{
+    background-color: #F7F7F7;
+}
+
+QToolButton:pressed, QPushButton:pressed
+{
+    background-color: #F6DF96;
+}
+
+QToolTip {
+    border: 2px solid darkkhaki;
+}
+
+
+QMenu, QContextMenu, QComboBox QAbstractItemView
+{
+    background-color: #EBEBEB;
+    padding:0px;
+    border: 0px;
+    border-bottom: 1px solid #DCDDDF;
+    border-left: 2px solid #DCDDDF;
+    border-right: 2px solid #DCDDDF;
+    border-radius: 0px;
+    outline: none;
+}
+
+QMenu, QContextMenu
+{
+   font-size: ContextMenuFontSize;
+}
+
+QMenu::icon, QContextMenu::icon
+{
+    padding-left: 10px;
+}
+
+QComboBox QAbstractItemView::item, QComboBox QAbstractItemView::item:focused
+{
+    padding-left: 8px;
+}
+QMenu::item, QContextMenu::item, QComboBox QAbstractItemView::item, QComboBox QAbstractItemView::item:focused
+{
+    margin: 0px;
+    padding-right: 8px;
+    padding-top:10px;
+    padding-bottom:10px;
+    color: black;
+    outline: none;
+}
+QMenu::item, QContextMenu::item
+{
+    padding-left: 30px;
+    padding-right: 12px;
+}
+
+QMenu::item:selected, QContextMenu::item:selected, QComboBox QAbstractItemView::item:selected
+{
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top:10px;
+    padding-bottom:10px;
+    background-color: #2DCC70;
+    color: black;
+    outline: none;
+}
+
+QMenu::item:selected, QContextMenu::item:selected
+{
+    padding-left: 30px;
+    padding-right: 12px;
+    outline: none;
+}
+
+QCheckBox{ spacing: 5px; outline: none; color: black; margin-bottom: 2px; }
+QCheckBox:disabled{ color: #777777; }
+QCheckBox::indicator, QGroupBox::indicator{  width: 24px; height: 24px; }
+QCheckBox::indicator:unchecked, QCheckBox::indicator:unchecked:hover, QGroupBox::indicator:unchecked, QGroupBox::indicator:unchecked:hover
+{
+    image: url(:/qss_icons/res/a/checkbox_unchecked.png);
+}
+QCheckBox::indicator:unchecked:focus, QCheckBox::indicator:unchecked:pressed, QGroupBox::indicator:unchecked:focus, QGroupBox::indicator:unchecked:pressed
+{
+   border: none; image: url(:/qss_icons/res/a/checkbox_unchecked_focus.png);
+}
+QCheckBox::indicator:checked, QCheckBox::indicator:checked:hover, QGroupBox::indicator:checked, QGroupBox::indicator:checked:hover
+{
+    border: none; image: url(:/qss_icons/res/a/checkbox_checked_focus.png);
+}
+QCheckBox::indicator:checked:focus, QCheckBox::indicator:checked:pressed, QGroupBox::indicator:checked:focus, QGroupBox::indicator:checked:pressed
+{
+   border: none; image: url(:/qss_icons/res/a/checkbox_checked_focus.png);
+}
+QCheckBox::indicator:indeterminate, QCheckBox::indicator:indeterminate:hover, QCheckBox::indicator:indeterminate:pressed
+QGroupBox::indicator:indeterminate, QGroupBox::indicator:indeterminate:hover, QGroupBox::indicator:indeterminate:pressed
+{
+    image: url(:/qss_icons/res/a/checkbox_indeterminate.png);
+}
+QCheckBox::indicator:indeterminate:focus, QGroupBox::indicator:indeterminate:focus
+{
+    image: url(:/qss_icons/res/a/checkbox_indeterminate_focus.png);
+}
+QCheckBox::indicator:checked:disabled, QGroupBox::indicator:checked:disabled
+{
+    image: url(:/qss_icons/res/a/checkbox_checked_disabled.png);
+}
+QCheckBox::indicator:unchecked:disabled, QGroupBox::indicator:unchecked:disabled
+{
+    image: url(:/qss_icons/res/a/checkbox_unchecked_disabled.png);
+}
+
+QRadioButton{ spacing: 5px; outline: none; color: black; margin-bottom: 2px; }
+QRadioButton:disabled{ color: #777777; }
+QRadioButton:focus{ border: none; }
+QRadioButton::indicator{ width: 30px; height: 30px; }
+QRadioButton::indicator:unchecked, QRadioButton::indicator:unchecked:hover{ image: url(:/qss_icons/res/a/radio_unchecked.png); }
+QRadioButton::indicator:unchecked:focus, QRadioButton::indicator:unchecked:pressed{ border: none; outline: none; image: url(:/qss_icons/res/a/radio_unchecked_focus.png); }
+QRadioButton::indicator:checked, QRadioButton::indicator:checked:hover
+{
+   border: none; outline: none;
+   image: url(:/qss_icons/res/a/radio_checked_focus.png);
+}
+QRadioButton::indicator:checked:focus, QRadioButton::indicato::menu-arrowr:checked:pressed
+{
+   border: none; outline: none;
+   image: url(:/qss_icons/res/a/radio_checked_focus.png);
+}
+QRadioButton::indicator:indeterminate, QRadioButton::indicator:indeterminate:hover, QRadioButton::indicator:indeterminate:pressed
+{
+        image: url(:/qss_icons/res/a/radio_indeterminate.png);
+}
+QRadioButton::indicator:checked:disabled
+{
+  outline: none; image: url(:/qss_icons/res/a/radio_checked_disabled.png);
+}
+QRadioButton::indicator:unchecked:disabled
+{
+    image: url(:/qss_icons/res/a/radio_unchecked_disabled.png);
+}
+
+QComboBox QAbstractItemView::item:selected
+{
+    padding-left: 0px;
+}
+
+QComboBox QAbstractItemView
+{
+    min-width: 80px;
+    outline: none;
+}
+
+
+QTabWidget::pane
+{
+    position: absolute;
+    top: -4px;
+    border-top: 1px solid #DCDDDF;
+}
+
+QTabWidget::tab-bar
+{
+    alignment: left;
+}
+
+QStatusBar{
+   background-color: rgba(235, 235, 235, 5%);
+   margin-left: 3px;
+   margin-right: 3px;
+   margin-bottom: 3px;
+}
+
+QStatusBar QFrame
+{
+   margin-left: 2px;
+}
+
+QStatusBar::item
+{
+    border:0px solid #DCDDDF;
+    border-radius:3px;
+}
+
+QTabBar::tab
+{
+    background:#EBEBEB;
+    height: EditWidgetHeight;
+    padding: 6px;
+    margin-bottom: 4px;
+}
+
+QTabBar::tab:first
+{
+    margin-left: 0px;
+}
+
+QTabBar::tab:hover
+{
+    background-color: #F7F7F7;
+}
+
+QTabBar::tab:selected, QTabBar::tab:focus
+{
+    height: EditWidgetHeight;
+    background-color: #2DCC70;
+}
+
+/* Tabs and buttons running along top of app */
+#main_tab_nav_bar::QTabWidget::pane
+{
+    position: absolute;
+    top: -3px;
+}
+
+#main_tab_nav_bar::tab-bar
+{
+    alignment: center;
+}
+
+#main_tab_nav_bar > QTabBar::tab
+{
+    padding-left: 30px;
+    padding-right: 30px;
+    height:50px;
+    border-left: 1px solid #DCDDDF;
+    color: #444444;
+}
+
+#main_tab_nav_bar QTabWidget > QTabBar::tab
+{
+    color: #444444;
+}
+
+#main_tab_nav_bar >  QTabBar::tab:first
+{
+    /* 3x QToolButton width */
+    margin-left:180px;
+}
+
+#main_tab_nav_bar QTabBar
+{
+    font-size: 15px;
+}
+
+AccountPage > QTabWidget >  QTabBar::tab:first, TransferPage > QTabWidget > QTabBar::tab:first
+{
+    /*Line up with logo in header bar*/
+    margin-left:25px;
+}
+
+AccountPage > QTabWidget >  QTabBar::tab:hover, TransferPage > QTabWidget > QTabBar::tab:hover
+{
+    background-color: #2DCC70;
+}
+
+AccountPage > QTabWidget >  QTabBar::tab, TransferPage > QTabWidget > QTabBar::tab
+{
+    border-left: 1px solid #DCDDDF;
+    color: #444444;
+}
+
+#main_tab_nav_bar >  QTabBar::tab:last
+{
+    border-right: 1px solid #DCDDDF;
+}
+
+#main_tab_nav_bar >  QTabBar::tab:hover
+{
+    background-color: #2DCC70;
+}
+
+#main_tab_nav_bar >  QTabBar::tab:selected
+{
+    background-color: #F7F7F7;
+    height:51px;
+    margin-bottom:3px;
+}
+
+/* Different background color for first tab when it is selected as it  must blend with white of first pane */
+#main_tab_nav_bar >  QTabBar::tab:first:selected
+{
+    background-color: white;
+}
+
+MenuBar
+{
+    height: 62px;
+    max-height: 62px;
+    border:0px;
+    padding:0px;
+    margin:0px;
+}
+
+MenuBar QToolButton
+{
+    height: 62px;
+    max-height: 62px;
+    width:60px;
+    background:#EBEBEB;
+    border: 0px;
+    border-left: 1px solid #DCDDDF;
+    border-radius: 0px;
+    margin:0px;
+    padding:0px;
+    /* Push images down and text up so that they look better aligned with everything else */
+    padding-top:10px;
+    padding-bottom:8px
+}
+
+MenuBar QToolButton:hover
+{
+    background-color: #2DCC70;
+}
+
+
+/* 'My home' page */
+SendCoinsDialog, AddressBookPage, QFrame
+{
+    background: rgba(255, 255, 255, 90%);
+    border: 0px;
+}
+
+#welcome_heading
+{
+    height:35px;
+    max-height:35px;
+    min-height:35px;
+    color: #7F7F7F;
+}
+
+#quick_transfer_heading, #account_summary_heading1, #account_summary_heading2
+{
+    height:35px;
+    max-height:35px;
+    min-height:35px;
+    width:100%;
+    background-color: #DCDDDF;
+}
+
+
+
+
+#quick_transfer_frame, #account_summary_frame, #interest_form_scroll_area
+{
+    background-color: #EBEBEB;
+}
+
+QDialog
+{
+    background-color: #F7F7F7;
+}
+
+#wallet_overview_heading, #wallet_overvie_Value, #tx_overview_heading, #labelWalletStatus, #labelTransactionsStatus
+{
+    height:HeadingLabHeight;
+    min-height:HeadingLabHeight;
+    width:100%;
+    background-color: #2DCC70;
+    margin-bottom:0px;
+    padding-left: 6px;
+    font-size: HeadingLabFontSize;
+}
+
+#portfolio_overview_description
+{
+    margin-left: 0px;
+    padding-left: 0px;
+    border-left: 0px;
+    margin-top:15px;
+    color: #7F7F7F;
+}
+
+QLabel
+{
+    background-color: rgba(0,0,0,0%);
+}
+
+QHeaderView::section
+{
+    background-color: #EBEBEB;
+    border: 0px;
+    height:35px;
+    text-decoration: underline;
+    padding-left: 10px;
+}
+
+View
+{
+    margin-top: 0px;
+}
+
+QTableView::item
+{
+    color: black;
+    border:0px;
+    padding-left: 0px;
+}
+
+
+/* Horizontal only grid lines for tables*/
+PortfolioOverviewTable::item, TransactionViewTable::item
+{
+    border-bottom: 1px solid #DCDDDF;
+}
+
+QHeaderView
+{
+    background-color: #EBEBEB;
+    height:35px;
+    margin-top: 0px;
+}
+
+QHeaderView::down-arrow
+{
+    subcontrol-origin:margin;
+    width: 12px;
+    image: url(':/icons/down_arrow3');
+}
+
+QHeaderView::up-arrow
+{
+    subcontrol-origin:margin;
+    width: 18px;
+    image: url(':/icons/up_arrow3');
+}
+
+
+#labelBalance, #labelStake, #labelUnconfirmed, #labelTotal, #portfolio_available_heading, #portfolio_interest_heading, #portfolio_pending_heading, #portfolio_total_heading
+{
+    height: 35px;
+    min-height: 35px;
+    max-height: 35px;
+}
+
+#portfolio_available_heading, #portfolio_interest_heading, #portfolio_pending_heading, #portfolio_total_heading
+{
+    background-color: #EBEBEB;
+    max-height: 35px;
+    min-height: 35px;
+    margin-top: 0px;
+    text-decoration: underline;
+    font-weight :bold;
+}
+
+#portfolio_available_heading, #labelBalance
+{
+    padding-left: 7px;
+}
+
+#portfolio_total_heading, #labelTotal
+{
+    padding-right: 7px;
+}
+
+#portfolio_heading, #portfolio_overview_heading, #quick_transfer_heading, #account_summary_heading1, #account_summary_heading2, #account_header_label, #label_create_account, #create_account_heading, #send_coins_heading, #address_book_heading, #address_book_send_coins_heading, #account_address_label
+{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#view_transactions_for_label
+{
+    font-size: 16px;
+    color: #A2A2A9;
+    margin-bottom: 4px;
+}
+
+#portfolio_total_heading, #labelTotal, #account_header_addess, #recent_transaction_label_show, #from_label, #to_label, #or_label, #address_book_edit_heading, #account_balance_header, #account_balance
+{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#total_interest_label, #total_interest_value
+{
+    font-size: 15px;
+}
+
+#num_transactions_found_footer
+{
+    font-size: 12px;
+    font-weight: bold;
+    color: #545454;
+}
+
+#recent_transaction_label_show
+{
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#total_interest_label, #total_interest_value
+{
+    font-weight: bold;
+}
+
+#labelBalance, #labelStake, #labelUnconfirmed, #labelTotal
+{
+    font-size: OverviewLabFontSize;
+}
+
+#last_30_days_out_total, #last_30_days_in_total, #last_30_days_in_heading, #last_30_days_out_heading
+{
+    font-size: CURRENCY_DECIMAL_FONT_SIZE;
+}
+
+
+/* 'View Accounts' page */
+AccountPage, TransferPage
+{
+    background-color: #F7F7F7;
+}
+
+QPushButton
+{
+    background: QLinearGradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FCF3D7, stop: 1 #F3D46D);
+    border:1px solid #2DCC70;
+    height:QPushButtonHeight;
+    padding-left:6px;
+    padding-right:6px;
+}
+
+QToolButton
+{
+    background: QLinearGradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FCF3D7, stop: 1 #F3D46D);
+    border: 1px solid #2DCC70;
+    border-radius: 5px;
+    height: EditWidgetHeight;
+    padding-left:6px;
+    padding-right:6px;
+}
+
+#TransactionTab, #CreateAccountTab
+{
+    background-color: white;
+}
+
+#transaction_tab_line
+{
+    width: 100%;
+    background-color: #BDBDBD;
+}
+
+#copy_address_button, #show_qrcode_button, #sign_message_button
+{
+    height: 18px;
+    max-height: 18px;
+    min-height: 18px;
+}
+
+#TransactionTabAccountSelection
+{
+    height: 25px;
+    max-height: 25px;
+    min-height: 25px;
+    background-color: #E2DFD8;
+    border: 1px solid #DBD8CF;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin:0px;
+    padding-left: 12px;
+}
+
+#TransactionTabAccountSelection::drop-down
+{
+    width:8px;
+    max-width:8px;
+    height:8px;
+    max-height:8px;
+    padding-right:14px;
+    padding-top:12px;
+    border-top-right-radius: 5px;
+    background-color: #DBD8CF;
+    background-image: url(':/icons/down_arrow');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+#account_summary_line
+{
+    width: 100%;
+    background-color: white;
+}
+
+#account_summary_pulldown1, #account_summary_pulldown2
+{
+    margin-left: 14px;
+}
+
+#transaction_table
+{
+    border: 0px;
+}
+
+#transaction_table QHeaderView
+{
+    background-color: white;
+}
+
+#transaction_table QHeaderView::section
+{
+    text-decoration: none;
+    font-weight: bold;
+    background-color: white;
+}
+
+#num_transactions_found_footer, #total_interest_value, #total_interest_label
+{
+    background: QLinearGradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #EEEEEE, stop: 1 #D0D1D2);
+    border: 1px solid #BDBDBD;
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+}
+
+#total_interest_value
+{
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    border: 0px;
+    background-color: #EBEBEB;
+    padding-right:8px;
+}
+
+#total_interest_label
+{
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    border: 0px;
+    background-color: #EBEBEB;
+    padding-left:8px;
+}
+
+AccountSummaryHeaderWidget
+{
+    background-color: #FFE66F;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+#recent_transaction_button:checked, #recent_transaction_button:hover
+{
+    background-color: #2DCC70;
+}
+
+#recent_transaction_button
+{
+    background-color: #EBEBEB;
+    border: 0px;
+    margin: 0px;
+    height: 36px;
+}
+
+TabbedDateWidget
+{
+    height: 36px;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+}
+
+TabbedDateWidget QPushButton
+{
+    height: 34px;
+    background-color: #EBEBEB;
+    border: 1px solid #BDBDBD;
+}
+
+TabbedDateWidget QScrollArea
+{
+    height: 36px;
+    max-height: 36px;
+    min-height: 36px;
+    border: 0px;
+    background-color: #EBEBEB;
+}
+
+TabbedDateWidget QPushButton:hover
+{
+    background-color: #2DCC70;
+}
+
+TabbedDateWidget QPushButton:pressed
+{
+    background-color: #F6DF96;
+}
+
+TabbedDateWidget QPushButton:checked
+{
+    background-color: #2DCC70;
+}
+
+
+
+#recent_transaction_label1, #recent_transaction_label2
+{
+    background-color: #DCDDDF;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#transaction_export_button
+{
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+#recent_transaction_searchbox, #address_searchbox
+{
+    height:EditWidgetHeight;
+    margin-left: 8px;
+    padding-left: 8px;
+    border: 1px solid #DCDDDF;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-right:0px;
+}
+
+#recent_transaction_searchbox:focus, #address_searchbox:focus
+{
+    border: 1px solid #F0D377;
+}
+
+#TransactionTab #transaction_search_button, #address_search_button
+{
+    max-height: EditWidgetHeight;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    margin-right: 8px;
+}
+
+TransactionFilterWidget
+{
+    background-color: #EBEBEB;
+    margin:0px;
+    border:0px;
+}
+
+#CreateAccountBox
+{
+    background-color: #DCDDDF;
+}
+
+#create_account_arrow
+{
+    margin-left: 19px;
+}
+
+#create_account_logo
+{
+    margin-right: 16px;
+}
+
+#send_coins_group_to, #send_coins_group_myaccounts, #frameCoinControl, #scrollArea
+{
+    background-color: white;
+    border: 1px solid #B7B7B7;
+    border-radius: 10px;
+}
+
+SendCoinsEntry, #send_coins_scroll_area
+{
+    background-color: white;
+}
+
+SendCoinsEntry2, #txtMessage
+{
+    height:50px;
+    border: 1px solid #B7B7B7;
+    border-radius: 5px;
+    padding-left:3px;
+    padding-right:3px;
+    margin:0px;
+}
+
+TextEdit, QTextEdit
+{
+    border: 1px solid #B7B7B7;
+    border-radius: 5px;
+    padding-left:3px;
+    padding-right:3px;
+    margin:0px;
+}
+
+SendCoinsDialog, #scrollAreaWidgetContents
+{
+    background-color: white;
+}
+
+/* Black bar across top with lock button at right of it */
+LockBar
+{
+    height: 0px;
+    max-height:0px;
+    min-height:0px;
+    width:100%;
+    background-color: black;
+    border:0px;
+    padding:0px;
+    margin:0px;
+}
+
+LockBar QToolButton
+{
+    height:0px;
+    background-color:#2DCC70;
+    border: 0px;
+    border-radius: 0px;
+    padding-left:6px;
+    padding-right:6px;
+    margin:0px;
+}
+
+
+#last_30_days_out_bar, #last_30_days_in_bar
+{
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+#last_30_days_out_bar::chunk
+{
+    background-color: #CD2928;
+}
+
+#last_30_days_in_bar::chunk
+{
+    background-color: #2AB150;
+}
+
+#account_name_value, #account_address_value
+{
+    border: 1px solid #C1C1C1;
+    margin-right: 30px;
+    margin-left: 10px;
+}
+
+#account_address_value
+{
+    background-color: #C6C6C6;
+}
+
+#portfolio_heading_more
+{
+    border: 0px;
+    text-decoration: underline;
+    height:35px;
+    max-height:35px;
+    min-height:35px;
+    background-color: #2DCC70;
+    margin: 0px;
+    padding-right:8px;
+    font-weight: bold;
+    color: #7F7F7F;
+}
+
+#address_list::item
+{
+    height: 35px;
+    border: 1px solid #E2E8EB;
+    background-color: white;
+    padding-left: 25px;
+    color: black;
+}
+
+#address_list::item:selected
+{
+    background-color: #DAE9F2;
+    color: black;
+}
+
+#address_book_view_frame, #address_book_edit_frame
+{
+    background-color: #D3D3D3;
+}
+
+#address_book_view_frame QFrame, #address_book_edit_frame QFrame
+{
+    background-color: white;
+}
+
+#address_book_edit_frame #address_book_delete_frame
+{
+    background-color: #F3F3F3;
+}
+
+#address_book_edit_frame QLineEdit, #address_book_view_frame QLineEdit, #passEdit1, #passEdit2, #passEdit3, #option_lang_combo, #option_unit_combo
+{
+    border: 2px solid #D3D4D6;
+    border-radius: 5px;
+    background-color: white;
+}
+
+QLineEdit
+{
+    height: EditWidgetHeight;
+    max-height: EditWidgetHeight;
+    min-height: EditWidgetHeight;
+    border: 2px solid #D3D4D6;
+    border-radius: 5px;
+    background-color: white;
+}
+
+RichTextCombo, TextEdit
+{
+    height: EditWidgetHeight;
+    max-height: EditWidgetHeight;
+    min-height: EditWidgetHeight;
+    border: 2px solid #BDBDBD;
+    border-radius: 5px;
+    background-color: white;
+}
+
+BitcoinAmountField > QDoubleSpinBox
+{
+    height: EditWidgetHeight;
+    max-height: EditWidgetHeight;
+    min-height: EditWidgetHeight;
+    border: 2px solid #BDBDBD;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: 0px;
+    font-size: OverviewLabFontSize;
+    background-color: white;
+}
+
+BitcoinAmountField > QDoubleSpinBox::up-button, BitcoinAmountField > QDoubleSpinBox::down-button, BitcoinAmountField > QValueComboBox::drop-down, BitcoinAmountField > QComboBox::down-arrow
+{
+    padding: 0px;
+    margin: 0px;
+    width:0px;
+    max-width:0px;
+    border-image: url(noimg);
+    border-width: 0px;
+    background-color: white;
+}
+
+BitcoinAmountField > QValueComboBox
+{
+    height: EditWidgetHeight;
+    max-height: EditWidgetHeight;
+    min-height: EditWidgetHeight;
+    color: #8B8889;
+    width: QValueComboBoxWidth;
+    border: 2px solid #BDBDBD;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: 0px;
+    padding: 0px;
+    margin: 0px;
+    font-size: CURRENCY_DECIMAL_FONT_SIZE;
+    background-color: white;
+}
+
+
+
+RichTextCombo::drop-down
+{
+    width:8px;
+    max-width:8px;
+    height:8px;
+    max-height:8px;
+    padding-right:18px;
+    padding-top:12px;
+    border-top-right-radius: 5px;
+    background-image: url(':/icons/down_arrow2');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+}
+
+#edit_account_label_button
+{
+    padding: 2px;
+    height: 10px;
+    max-height: 10px;
+    min-height: 10px;
+}
+
+/* === QScrollBar:vertical === */
+QScrollBar:vertical{ width:QScrollBarWidth; background:rgba(0,0,0,0%); margin:0px,0px,0px,0px; padding-top:9px; padding-bottom:9px; }
+QScrollBar::handle:vertical{ width:QScrollBarWidth; background:rgba(0,0,0,25%); border-radius:4px; min-height:20; }
+QScrollBar::handle:vertical:hover{ width:QScrollBarWidth; background:rgba(0,0,0,50%); border-radius:4px; min-height:20; }
+QScrollBar::add-line:vertical{ height:9px; width:QScrollBarWidth; border-image:url(:/icons/scroll_bar_3); subcontrol-position:bottom; }
+QScrollBar::sub-line:vertical{ height:9px; width:QScrollBarWidth; border-image:url(:/icons/scroll_bar_1); subcontrol-position:top; }
+QScrollBar::add-line:vertical:hover{ height:9px; width:QScrollBarWidth; border-image:url(:/icons/scroll_bar_4); subcontrol-position:bottom; }
+QScrollBar::sub-line:vertical:hover{ height:9px; width:QScrollBarWidth; border-image:url(:/icons/scroll_bar_2); subcontrol-position:top; }
+QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical{ background:rgba(0,0,0,10%); border-radius:4px; }
+
+/* === QScrollBar:horizontal === */
+QScrollBar:horizontal { background: #111111; height: 16px; margin: 0 16px 0 16px; }
+QScrollBar::handle:horizontal { background: #555555; min-width: 16px; }
+QScrollBar::add-line:horizontal { background: #444444; width: 16px; subcontrol-position: right; subcontrol-origin: margin; }
+QScrollBar::sub-line:horizontal { background: #444444; width: 16px; subcontrol-position: left; subcontrol-origin: margin; }
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal { background: none; }
+QScrollBar:left-arrow:horizontal, QScrollBar:right-arrow:horizontal { border: 2px solid #333333; width: 6px; height: 6px; background: #5f5f5f; }
+
+QToolBar
+{
+   background-color: rgba(41, 155, 70, 25%);
+   spacing: 3px;
+   margin: 0px;
+   height: 60px;
+   border: 0px, none, white;
+   border-bottom: 0px solid white;
+}
+
+QToolBar::handle {
+    image: url(handle.png);
+}
+
+QToolBar QToolButton
+{
+    background: transparent;
+    border: 0px solid #2DCC70;
+    border-radius: 0px;
+    height: QToolButtonHeight;
+    padding-left:6px;
+    padding-right:6px;
+    font-size:QToolBarFontSize;
+    font-weight :bold;
+    color :white;
+}
+
+QToolBar::separator
+{
+   width: 10px;
+   background: transparent;
+   margin: 3px 0px;
+}
+
+QToolButton::checked, QToolButton::hover, QToolButton::pressed
+{
+    background-image: url(Res/ui/QToolButton_bg.png);
+    border-left: 2px solid qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #408C4C, stop:1 #FCFCFC);
+    border-right: 2px solid qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #408C4C, stop:1 #FCFCFC);
+}
+
+QToolButton::menu-arrow {
+
+}
+
+QToolButton::menu-arrow:open
+{
+   top: 1px; left: 1px; 
+}
+
+QComboBox
+{
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding: 1px 18px 1px 3px;
+}
+
+QComboBox QListView
+{
+    border-style: none;
+    background-color: qlineargradient(x1:0, y1:0, x2:1,y2:0, stop: 1 rgba(228, 41, 81, 100), stop: 0 rgba(234, 107, 101, 100));
+}
+
+QComboBox::drop-down
+{
+    min-width: 24px;
+    border: 1px;
+    border-color:white;
+    border-left-style:solid;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-right-style: none;
+}
+QComboBox::down-arrow
+{
+    image: url(:/qss_icons/res/a/arrow_down.png);
+    min-width: 20px;
+}
+
+QComboBox::down-arrow:on { /* shift the arrow when popup is open */
+    top: 1px;
+    left: 1px;
+}
+
+QCombobox:!editable{ color:green; }
+QComboBox QAbstractItemView {
+    border: 2px solid #32435E;
+    selection-background-color: #2dcc70;
+    background: white;
+    min-height: 30px;
+}
+
+QProgressBar
+{
+   background-color: #e8e8e8; border: 1px solid grey;
+   border-radius: 7px; padding: 1px; text-align: center;
+}
+
+QProgressBar::chunk
+{
+   background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #FF8000, stop: 1 orange);
+   border-radius: 7px; margin: 0px; 
+}
+
+MainFrame
+{
+   background:transparent;
+   margin-top: 5px;
+   margin-left: 5px;
+   margin-right: 5px;
+}
+
+#titleWidget
+{
+    min-height: 26px;
+}
+
+#titleWidget > QLabel
+{
+   color: white;
+   font-size: TitleWidget_FontSize;
+}
+
+#titleWidget > QToolButton
+{
+   background: transparent;
+   border: 0px;
+   width: TitleButton_Width;
+   height: TitleButton_Height;
+   border-radius: 0px;
+   border-left: 1px solid qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #408C4C, stop:1 #FCFCFC);
+   border-bottom: 1px solid qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #CDCDCD, stop:1 #CDCDCD);
+}
+
+#titleWidget > QToolButton:hover
+{
+    background: red;
+    border-radius: 0px;
+}
+
+#titleWidget > QToolButton:pressed
+{
+    background-color: green;
+    border-radius: 0px;
+    height: 16px;
+    border-left: 2px solid qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #408C4C, stop:1 #FCFCFC);
+    border-right: 2px solid qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #408C4C, stop:1 #FCFCFC);
+}
+
+QStackedWidget
+{
+   background:transparent;
+}
+
+OverviewPage > #frame_2
+{
+   max-height: 251px;
+}
+
+QTableView{alternate-background-color:rgba(0, 255, 0, 35%);}
+QTableView::item:focus{border: 1px solid lime;}
+QTableView::item:hover{border: 1px solid lime;}
+
+QWebView{background:transparent; font-size: QWebView_FontSize;}
+QPushButton:!enabled { color: gray; }
+QMenu::item:!enabled, QContextMenu::item:!enabled{ color: gray; }

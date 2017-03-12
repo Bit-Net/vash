@@ -1,0 +1,113 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <title>BitNet AD Bonus</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=500px, initial-scale=0.64">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
+    <!-- The leaves.css file animates the leaves -->
+    <link rel="stylesheet" href="leaves.css" type="text/css" media="screen" charset="utf-8">
+	<!-- The leaves.js file creates the leaves -->
+    <script src="jqm.js" type="text/javascript" charset="utf-8"></script>
+    <script src="leaves.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+
+<body style="zoom: 1;">
+<audio id="audiotag1" src="bong.wav" preload="auto"></audio>
+<script type="text/javascript">
+
+	
+</script>
+    <div id="container">
+      <!-- The container is dynamically populated using the init function in leaves.js -->
+      <!-- Its dimensions and position are defined using its id selector in leaves.css -->
+		<div class="BnsDiv" id="BnsDiv">  
+           <iframe id="BnsFrm" width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes" allowtransparency="yes" ></iframe>  
+        </div>
+      <div id="leafContainer">
+	  </div>
+      <!-- its appearance, dimensions, and position are defined using its id selector in leaves.css -->
+<div class="dialogDiv" id="dialogDiv">
+		<div class="dialogBox">
+			<div class="header">
+				<div class="header_left" id="BnsSayer">
+					发红包者说：
+				</div>
+				<div class="header_right">				</div>
+			</div>
+			<div class="content" id="BonusMsg" style="table-layout: fixed; word-wrap: break-word;">
+这是币联网的红包广告奖励系统--This is BitNet's Ad Bonus Reward System 。<br><br>
+				</ul>
+			</div>
+		</div>
+	</div>
+    </div>
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+$(document).ready(function(){
+
+    var tbW = $('#leafContainer').width();
+    var pwW = $('#pointer-wrap').width();
+	tbW = window.screen.width;
+	pwW = tbW;
+	//alert(tbW);
+
+    //  Looking for a formula that will set the initial arrow rotation to point  to the left border of the target-box at any browser width. This will be  the target-box cursor x=0 position.         
+
+    // This is just a wild guess at a formula that obviously doesn't work properly
+    
+     var startingRotatePosition = 0; //( tbW / pwW ) - (tbW * 0.1 ) ;
+	//var startingRotatePosition = ( pwW / tbW ) - (pwW * 0.1 ) ;
+    
+    //alert(startingRotatePosition);
+    
+    $('#pointer-wrap').css({ 
+        
+        "-moz-transform" : "rotate(" + startingRotatePosition + "deg)" ,
+        "-webkit-transform" : "rotate(" + startingRotatePosition + "deg)" ,
+        "transform" : "rotate(" + startingRotatePosition + "deg)" 
+        
+    });
+    
+
+
+    
+    //Rotating the arrow based on cursor x position while in the target-box
+    $('#leafContainer').mousemove(function(e){
+        
+        var x = e.pageX - this.offsetLeft;         
+        var xCoords = "(  x = " + x + " )"; 
+
+        // Looking for a formula that will keep the arrow rotation proportions on window resize
+        // This is just a wild guess at a formula that obviously doesn't work properly
+        
+        var xRtt = ( x * ( pwW / tbW ) - ( tbW * 0.1 ) );  
+
+        //$('#BonusMsg').text(xCoords + ', ' + xRtt + ', ' + (xRtt / 90) + ',  ' + 180 *(x / pwW));
+
+		if( xRtt < -90 ) xRtt = -90;
+		if( xRtt < 270 ) xRtt = 270;
+		if( xRtt > 2700 ) xRtt = 2700;
+		xRtt = 180 *(x / pwW) - 90;
+        $('#pointer-wrap').css({ 
+            
+            "-moz-transform" : "rotate("+xRtt+"deg)" ,
+            "-webkit-transform" : "rotate("+xRtt+"deg)" ,
+            "transform" : "rotate("+xRtt+"deg)" 
+        
+        });
+    
+        
+    });
+    
+    
+});
+});//]]>  
+
+</script>
+        <div id="pointer-wrap">
+        </div>
+  </body>
+</html>

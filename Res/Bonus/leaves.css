@@ -1,0 +1,256 @@
+html,body{height:100%;margin:0;padding:0}
+body
+{
+    background-color2: #4E4226;
+    overflow: hidden;
+	background: url('bg2.jpg');
+  background-color: rgba(0, 0, 0, 0.49);
+}
+ul,li{text-indent:0;text-decoration:none;margin:0;padding:0}
+img{
+border:0;
+cursor2: pointer;
+cursor: crosshair;
+z-index:30;
+}
+body{font:100%/18px helvetica, arial, sans-serif}
+canvas{cursor2:crosshair;display:block;left:0;position:absolute;top:0;z-index:0}
+
+#pointer-wrap {
+    display: block; position: absolute; 
+	//top: 50%; 
+	left: 50%; 
+	width: 180px; height: 180px; margin: -90px 0 0 -90px; 
+	//border: 1px dashed rgba(180,180,180,1.0);
+	bottom: 0px;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  background-size: 100% 100%;
+  background-image: url('images/feijj.png');
+}
+
+.BnsDiv {
+	margin: 0 auto;
+	text-align: center;
+	width: 90%;
+	height: 90%;
+	position: absolute;  
+	left:5%; 
+	top:5%;
+	margin-left2:-250px;  
+	margin-top2:-100px;
+	border: 1px solid #d2d2d2;
+	background: transparent;
+	opacity: 0.95;
+ overflow: hidden;
+ display:None;
+ z-index: 99;
+ box-shadow: 5px 5px 5px rgba(2, 2, 2, 0.39)
+}
+
+.dialogDiv {
+z-index: -1;
+	margin: 0 auto;
+	text-align: center;
+	width: 500px;
+	position: absolute;  
+	left:50%; 
+	top:40%;
+	margin-left:-250px;  
+	margin-top:-100px;  
+opacity: 0.90;
+}
+
+.dialogBox {
+	margin: auto 0;
+	text-align: center;
+	border: 1px solid #d2d2d2;
+	background: #ffffff;
+box-shadow: 5px 5px 5px rgba(2, 2, 2, 0.39)
+
+}
+
+.dialogBox .header {
+	background: #0BA1CD;
+	margin: 2px;
+	height: 26px;
+	text-align: left;
+}
+
+.dialogBox .header .header_left {
+	float: left;
+}
+
+.dialogBox .header .header_right {
+	float: right;
+	text-align: center;
+	width: 24px;
+}
+.dialogBox .header .header_right .close{
+	margin-top: 4px;
+}
+.dialogBox .header{
+	font-size: 14px;
+	font-weight: bold;
+	color: #ffffff;
+	padding-left: 6px;
+	padding-top: 4px;
+}
+
+.dialogBox .content {
+	font-size: 1.17em;
+	font-weight: bold;
+	color: #6e6d6d;
+	margin: auto 0;
+	margin-top: 8px;
+	background:#ffffff url(images/important.png) no-repeat right bottom;
+}
+
+.dialogBox .content ul {
+	font-size: 12px;
+	color: #6e6d6d;
+	margin-bottom: 8px;
+}
+
+.dialogBox .content ul li {
+	font-size: 12px;
+	color: #6e6d6d;
+	margin: 6px;
+}
+
+#container {
+    position2: relative;
+    height: 100%;
+    width: 100%;
+    margin: 10px auto;
+    overflow: hidden;
+    border2: 4px solid #5C090A;
+    background3: url('images/backgroundLeaves.jpg') no-repeat;
+    background2: #4E4226 url('images/backgroundLeaves.jpg') no-repeat top left;
+}
+
+/* Defines the position and dimensions of the leafContainer div */
+#leafContainer 
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* Defines the appearance, position, and dimensions of the message div */
+#message2
+{
+    position: absolute;
+    top: 160px;
+    width: 100%;
+    height: 300px;
+    background:transparent url('images/textBackground.png') repeat-x center;
+    color: #5C090A;
+    font-size: 220%;
+    font-family: 'Georgia';
+    text-align: center;
+    padding: 20px 10px;
+    -webkit-box-sizing: border-box;
+    -webkit-background-size: 100% 100%;
+    z-index: 1;
+}
+
+p {
+  margin: 15px;
+}
+
+a
+{
+  color: #5C090A;
+  text-decoration: none;
+}
+
+/* Sets the color of the "Dino's Gardening Service" message */
+em 
+{
+    font-weight: bold;
+    font-style: normal;
+}
+
+.phone {
+  font-size: 150%;
+  vertical-align: middle;
+}
+
+/* This CSS rule is applied to all div elements in the leafContainer div.
+   It styles and animates each leafDiv.
+*/
+#leafContainer > div 
+{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    
+    /* We use the following properties to apply the fade and drop animations to each leaf.
+       Each of these properties takes two values. These values respectively match a setting
+       for fade and drop.
+    */
+    -webkit-animation-iteration-count: infinite, infinite;
+    -webkit-animation-direction: normal, normal;
+    -webkit-animation-timing-function: linear, ease-in;
+}
+
+/* This CSS rule is applied to all img elements directly inside div elements which are
+   directly inside the leafContainer div. In other words, it matches the 'img' elements
+   inside the leafDivs which are created in the createALeaf() function.
+*/
+#leafContainer > div > img {
+     position: absolute;
+     width: 100px;
+     height: 100px;
+
+    /* We use the following properties to adjust the clockwiseSpin or counterclockwiseSpinAndFlip
+       animations on each leaf.
+       The createALeaf function in the Leaves.js file determines whether a leaf has the 
+       clockwiseSpin or counterclockwiseSpinAndFlip animation.
+    */
+     -webkit-animation-iteration-count: infinite;
+     -webkit-animation-direction: alternate;
+     -webkit-animation-timing-function: ease-in-out;
+     -webkit-transform-origin: 50% -100%;
+}
+
+
+/* Hides a leaf towards the very end of the animation */
+@-webkit-keyframes fade
+{
+    /* Show a leaf while into or below 95 percent of the animation and hide it, otherwise */
+    0%   { opacity: 1; }
+    95%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+
+/* Makes a leaf fall from -300 to 600 pixels in the y-axis */
+@-webkit-keyframes drop
+{
+    /* Move a leaf to -300 pixels in the y-axis at the start of the animation */
+    0%   { -webkit-transform: translate(0px, -50px); }
+    /* Move a leaf to 600 pixels in the y-axis at the end of the animation */
+    100% { -webkit-transform: translate(0px, 650px); }
+}
+
+/* Rotates a leaf from -50 to 50 degrees in 2D space */
+@-webkit-keyframes clockwiseSpin
+{
+    /* Rotate a leaf by -50 degrees in 2D space at the start of the animation */
+    0%   { -webkit-transform: rotate(-50deg); }
+    /*  Rotate a leaf by 50 degrees in 2D space at the end of the animation */
+    100% { -webkit-transform: rotate(50deg); }
+}
+
+
+/* Flips a leaf and rotates it from 50 to -50 degrees in 2D space */
+@-webkit-keyframes counterclockwiseSpinAndFlip 
+{
+    /* Flip a leaf and rotate it by 50 degrees in 2D space at the start of the animation */
+    0%   { -webkit-transform: scale(-1, 1) rotate(50deg); }
+    /* Flip a leaf and rotate it by -50 degrees in 2D space at the end of the animation */
+    100% { -webkit-transform: scale(-1, 1) rotate(-50deg); }
+}

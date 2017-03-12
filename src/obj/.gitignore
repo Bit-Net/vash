@@ -1,0 +1,6 @@
+*
+!.gitignore
+!zerocoin
+!aes
+!lz4
+!lzma
