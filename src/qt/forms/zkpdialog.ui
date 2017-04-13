@@ -181,7 +181,7 @@ QGroupBox::title {
                  </sizepolicy>
                 </property>
                 <property name="suffix">
-                 <string> VPN</string>
+                 <string> VASH</string>
                 </property>
                 <property name="minimum">
                  <number>1000</number>
@@ -393,7 +393,7 @@ QGroupBox::title {
                  </sizepolicy>
                 </property>
                 <property name="suffix">
-                 <string> VPN</string>
+                 <string> VASH</string>
                 </property>
                 <property name="minimum">
                  <number>1000</number>
@@ -639,7 +639,7 @@ QGroupBox::title {
                  </sizepolicy>
                 </property>
                 <property name="suffix">
-                 <string> VPN</string>
+                 <string> VASH</string>
                 </property>
                 <property name="minimum">
                  <number>1000</number>

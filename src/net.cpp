@@ -102,7 +102,7 @@ double fVpn_Btc_price = 0.0;
 int bUpdate_price_now = 0;
 
 std::string sQkl_domain = "www.qkl.im";  // www.qkl.io
-int BitNet_Version = 1701;
+int BitNet_Version = 1702;
 int BitNet_Network_id = 1;  // VpnCoin = 1
 
 
@@ -2831,15 +2831,15 @@ static const char *strDNSSeed[][2] = {
 	{"s9.vpncoin.org", "s9.vpncoin.org"},	
 	{"sa.vpncoin.org", "abe.vpncoin.org"},
 	{"sf.vpncoin.org", "faucet.vpncoin.org"},
-    {"s1.bitnet.wang", "s1.bitnet.wang"},
-    {"s2.bitnet.wang", "s2.bitnet.wang"},
-    {"s3.bitnet.wang", "s3.bitnet.wang"},
-	{"s4.bitnet.wang", "s4.bitnet.wang"},
-	{"s5.bitnet.wang", "s5.bitnet.wang"},
-	{"s6.bitnet.wang", "s6.bitnet.wang"},
-	{"s7.bitnet.wang", "s7.bitnet.wang"},
-	{"s8.bitnet.wang", "s8.bitnet.wang"},
-	{"s9.bitnet.wang", "s9.bitnet.wang"},
+    {"s1.bitnet.cc", "s1.bitnet.cc"},
+    {"s2.bitnet.cc", "s2.bitnet.cc"},
+    {"s3.bitnet.cc", "s3.bitnet.cc"},
+	{"s4.bitnet.cc", "s4.bitnet.cc"},
+	{"s5.bitnet.cc", "s5.bitnet.cc"},
+	{"s6.bitnet.cc", "s6.bitnet.cc"},
+	{"s7.bitnet.cc", "s7.bitnet.cc"},
+	{"s8.bitnet.cc", "s8.bitnet.cc"},
+	{"s9.bitnet.cc", "s9.bitnet.cc"},
 	{"www.bmarket.cc", "www.bmarket.cc"},
 };
 
@@ -2960,13 +2960,7 @@ DWORD SyncNodeIpPort(DWORD ip, DWORD port)
 
 unsigned int pnSeed[] =
 {
-    0x43CF715E, 0xE271402D, 0x4B7109B0, 0x0CD0584D, 0x29126D27, 0x3C10A768, 0xEED71878, 0xAC2CBC46,
-    0x61126D27, 0xB508F82B, 0xBA195CDA, 0x1C16E33E, 0x82A9476C, 0x0FB5D076, 0x1AAB77D4, 0x7B21A376,
-    0xD54886BC, 0x1881E65E, 0x25FEA7D0, 0x22EDD0B3, 0xB6E0FB68, 0x2D5D5758, 0x6C8BC3DD, 0xC7F5D5BE,
-    0x01A624AB, 0xA1F9D5BE, 0xE448302A, 0x32710E75, 0x82B3BF3C, 0x7461163A, 0x0D126D27, 0x8697F476,
-    0x294109B0, 0x68466A4D, 0x118DE28B, 0x74CB3CB7, 0x3C6C2560, 0xB4589F73, 0xA2E9E37A, 0x40F2F75F,
-    0xAC3364D3, 0x77CA13C3, 0xD639A373, 0xEF302578, 0x969495D3, 0x02DE0BAF, 0xC2A9CE8C, 0x67B2F74D,
-    0x7D08807C, 0x3C19587D, 0xC4B8246F
+
 };
 
 void DumpAddresses()
@@ -3227,7 +3221,7 @@ void static ProcessOneShot2(int64_t iTm)
 			if( fNetDbg ){ printf("%" PRId64 " :: ProcessOneShot2 - [%s] [%d : %d]\n", iTm, pHost, ic); }
 		}
 		
-        if( GetArg("-addnodetoconf", 1) && (GetArg("-isseednode", 0) == 0) )
+        if( GetArg("-addnodetoconf", 0) && (GetArg("-isseednode", 0) == 0) )
         {
             int iMaxNodeToConf = GetArg("-maxnodetoconf", 5000);  // 2015.10.17 add
             if( iAddNodeCount < iMaxNodeToConf ){ iAddNodeCount = GetParamCountInConf(GetConfigFile().string(), "addnode="); }			
@@ -4028,7 +4022,11 @@ void StartNode(void* parg)
         printf("Error; NewThread(ThreadDumpAddress) failed\n");
 
     // Mine proof-of-stake blocks in the background
+#ifdef QT_GUI
     if (!GetBoolArg("-staking", true))
+#else
+    if (!GetBoolArg("-staking", false))
+#endif
         printf("Staking disabled\n");
     else
         if (!NewThread(ThreadStakeMiner, pwalletMain))

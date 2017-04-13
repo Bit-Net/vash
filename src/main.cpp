@@ -80,6 +80,7 @@ const int64_t MIN_Lottery_Create_Amount = 100 * COIN;
 const int NewTxFee_RewardCoinYear_Active_Height = 525600;  // 2015.09.15 add
 const int64_t MIN_STAKE_TX_AMOUNT = 1000 * COIN;  // 2015.10.01 add
 extern int dw_zip_block;  // 2015.12.30 add
+const int nNewBlkVerActiveNum = 1213999 + (6 * 60 * 24);
 
 // Settings
 int64_t nTransactionFee = MIN_TX_FEE;
@@ -2321,6 +2322,9 @@ bool CBlock::AcceptBlock(bool bPassBlock)
     CBlockIndex* pindexPrev = (*mi).second;
     int nHeight = pindexPrev->nHeight+1;
 
+    if( (nHeight >= nNewBlkVerActiveNum) && (nVersion < 8) )      // 2017.04.13 add
+        return DoS(100, error("AcceptBlock() : reject old block version %d < %d", nVersion, CURRENT_VERSION));
+
   bool bPassMode = (iFastsyncblockModeArg > 0) && (nHeight < (iFastSyncBlockHeiOk + 32));
 //if( fDebug ){ printf("AcceptBlock %d hi=%d, PassMode %d\n", bPassBlock, nHeight, bPassMode); }
     if (IsProtocolV2(nHeight) && nVersion < 7)
@@ -4220,7 +4224,7 @@ if( fDebug ){ printf("Node %s Network_id [%d] diff with [%d]\n", pfrom->addr.ToS
 		}
         uint256 hashBlock = block.GetHash();
 
-        printf("received [%s] %s\n", strCommand.c_str(), hashBlock.ToString().c_str());   //substr(0,20).c_str());
+        printf("received [%s] [%s] [%s] \n", strCommand.c_str(), hashBlock.ToString().c_str(), pfrom->addr.ToString().c_str());   //substr(0,20).c_str());
         // block.print();
 
         CInv inv(pfrom->zipblock > 0 ? MSG_BLKZP : MSG_BLOCK, hashBlock);

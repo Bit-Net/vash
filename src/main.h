@@ -98,6 +98,7 @@ extern int bitnet_pack_block(CBlock* block, string& sRzt);
 extern bool getCBlockByFilePos(const CAutoFile& filein, unsigned int nBlockPos, CBlock* block);
 extern bool getCBlocksTxByFilePos(const CAutoFile& filein, unsigned int nBlockPos, unsigned int txId, CTransaction& tx);
 extern int dw_zip_block;
+extern const int nNewBlkVerActiveNum;
 
 
 //static const uint256 hashGenesisBlock("0x000001faef25dec4fbcf906e6242621df2c183bf232f263d0ba5b101911e4563");
@@ -858,7 +859,7 @@ class CBlock
 {
 public:
     // header
-    static const int CURRENT_VERSION = 7;
+    static const int CURRENT_VERSION = 8;
     int nVersion;
     uint256 hashPrevBlock;
     uint256 hashMerkleRoot;
@@ -909,7 +910,8 @@ public:
 
     void SetNull()
     {
-        nVersion = CBlock::CURRENT_VERSION;
+        if( fTestNet ){ nVersion = CBlock::CURRENT_VERSION; }
+        else{ nVersion = nBestHeight >= nNewBlkVerActiveNum ? CBlock::CURRENT_VERSION : 7; }
         hashPrevBlock = 0;
         hashMerkleRoot = 0;
         nTime = 0;

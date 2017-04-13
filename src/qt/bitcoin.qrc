@@ -62,6 +62,10 @@
         <file alias="transaction_3">res/icons/clock3.png</file>
         <file alias="transaction_4">res/icons/clock4.png</file>
         <file alias="transaction_5">res/icons/clock5.png</file>
+        <file alias="transaction_6">res/icons/clock6.png</file>
+        <file alias="transaction_7">res/icons/clock7.png</file>
+        <file alias="transaction_8">res/icons/clock8.png</file>
+        <file alias="transaction_9">res/icons/clock9.png</file>
         <file alias="options">res/icons/configure.png</file>
         <file alias="receiving_addresses">res/icons/receive.png</file>
         <file alias="editpaste">res/icons/editpaste.png</file>

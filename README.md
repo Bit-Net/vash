@@ -19,7 +19,7 @@ And VpnCoin is a PoS-based cryptocurrency.<br />
 [Official website: http://www.bitnet.cc](http://www.bitnet.cc)<br />
 [Twitter: https://twitter.com/vpn_dev](https://twitter.com/vpn_dev)<br />
 [Facebook: https://www.facebook.com/BitNetTeam](https://www.facebook.com/BitNetTeam)<br />
-![alt tag](http://i.imgur.com/iosGFfB.png)<br />
+![alt tag](http://i.imgur.com/P7OYrDS.png)<br />
 
 
 Development process

@@ -487,7 +487,12 @@ QVariant TransactionTableModel::txStatusDecoration(const TransactionRecord *wtx)
         case 2: return QIcon(":/icons/transaction_2");
         case 3: return QIcon(":/icons/transaction_3");
         case 4: return QIcon(":/icons/transaction_4");
-        default: return QIcon(":/icons/transaction_5");
+        case 5: return QIcon(":/icons/transaction_5");
+        case 6: return QIcon(":/icons/transaction_6");
+        case 7: return QIcon(":/icons/transaction_7");
+        case 8: return QIcon(":/icons/transaction_8");
+        case 9: return QIcon(":/icons/transaction_9");
+        default: return QIcon(":/icons/transaction_9");
         };
     case TransactionStatus::Confirmed:
         return QIcon(":/icons/transaction_confirmed");
