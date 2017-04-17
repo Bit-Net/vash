@@ -43,6 +43,7 @@ unsigned int nMinerSleep;
 bool fUseFastIndex;
 enum Checkpoints::CPMode CheckpointsMode;
 extern int64_t S_To_64(const char *s);
+extern void initZkpForVer1703();
 
 #ifdef WIN32
 extern void LoadIniCfg( DWORD bStart, DWORD dRelay );
@@ -1479,6 +1480,7 @@ dw_zip_block = isBlockChainCompressed(strDataDir, dw_zip_block);
     printf("setKeyPool.size() = %"PRIszu"\n",      pwalletMain->setKeyPool.size());
     printf("mapWallet.size() = %"PRIszu"\n",       pwalletMain->mapWallet.size());
     printf("mapAddressBook.size() = %"PRIszu"\n",  pwalletMain->mapAddressBook.size());
+    initZkpForVer1703();   // 2017.04.17
 
 #ifdef USE_BITNET
 	LoadIniCfg(1, 0);

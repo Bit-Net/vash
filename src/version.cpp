@@ -37,7 +37,7 @@ const std::string CLIENT_NAME("BitNet");
 #define GIT_ARCHIVE 1
 #ifdef GIT_ARCHIVE
 #    define GIT_COMMIT_ID "32a928e"
-#    define GIT_COMMIT_DATE "2014.07.02 12:01 - 2017.04.13 12:30"
+#    define GIT_COMMIT_DATE "2014.07.02 12:01 - 2017.04.17 12:00"
 #endif
 
 #define BUILD_DESC_FROM_COMMIT(maj,min,rev,build,commit) \

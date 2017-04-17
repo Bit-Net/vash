@@ -520,7 +520,7 @@ bool getZkpMintPackFromZkpMintTx(const CTransaction& tx, ZeroKnowledgeProofMintP
 	{
 		int k = getZkpMintPackFromTx(tx, zkpmp); //ZeroKnowledgeProofMintPack zmkp{"","",""};
 		rzt = k > 2;
-		if( fDebug ){ printf("getZkpMintPackFromZkpMintTx(%s), rzt=[%d], k=[%d] \n", sHash.c_str(), rzt, k); }
+		if( fDebug ){ printf("getZkpMintPackFromZkpMintTx(%s), rzt=[%d], k=[%d] \nZkpHash=[%s], MintKey=[%s] \n", sHash.c_str(), rzt, k, zkpmp.sZkpHash.c_str(), zkpmp.sMintKey.c_str()); }
 	}//else if( fDebug ){ printf("getZkpMintPackFromZkpMintTx(%s) not a ZKP mint tx :( \n", sHash.c_str()); }
 	return rzt;
 }
@@ -579,6 +579,7 @@ bool IsZkpBurnTx(const CTransaction& tx, bool checkExists, string& sRztZkpHash, 
 	}		
 	return rzt;
 }
+
 int addOrEraseZkpTx(const CTransaction& tx, int nHeight, bool bAdd, bool bJustRecvTx, bool bInOtherChain)
 {
 	int rzt = 0;      bool bZkpMintTx = isZkpMintTx(tx);   // zkpburn 100 VieLM7amheaY83qhDyJET57UwwgRgzh42v
@@ -605,10 +606,13 @@ int addOrEraseZkpTx(const CTransaction& tx, int nHeight, bool bAdd, bool bJustRe
 				if( fDebug ) printf("addOrEraseZkpTx hash=[%s], bZkpExists=[%d] bAdd=[%d] bJustRecvTx=[%d] \n", hash.ToString().c_str(), bZkpExists, bAdd, bJustRecvTx);
 			    if( bAdd )
 			    {
-					if( bJustRecvTx || bInOtherChain ){ zkp.nStatus = 0; }  // Locked
-					else{ zkp.nStatus = 1; }
-					if( fDebug ) printf("addOrEraseZkpTx:: zkp.nStatus=[%d], zkpHash=[%s] \n", zkp.nStatus, zkp.GetHash().ToString().c_str());
-					if( saveZeroKnowledgeProofToDB(zkp) ){ rzt++; }
+					if( bZkpExists && (bJustRecvTx || bInOtherChain) ){ rzt++; }  // 2017.04.16 add
+					else{
+						if( bJustRecvTx || bInOtherChain ){ zkp.nStatus = 0; }  // Locked
+						else{ zkp.nStatus = 1; }
+						if( fDebug ) printf("addOrEraseZkpTx:: zkp.nStatus=[%d], zkpHash=[%s] \n", zkp.nStatus, zkp.GetHash().ToString().c_str());
+						if( saveZeroKnowledgeProofToDB(zkp) ){ rzt++; }
+					}
 			    }else{	// disconnect
 				    if( bZkpExists )
 					{
@@ -800,6 +804,7 @@ bool isValidZkpMintTx(const CTransaction& tx, const string sCallFrom, int nHeigh
 	//CZeroKnowledgeProofMintKey czmk;      ZeroKnowledgeProofMintPack zkpmp{"","",""};
 	CZeroKnowledgeProofMintKey czmk;      CZeroKnowledgeProof czkp;
 	if( fDebug ){ printf("\n%s call isValidZkpMintTx(%s), nHeight=[%d], bJustRecvTx=[%d], bSaveMintKeyToDb=[%d], bUpdateSpentToDb=[%d], bInOtherChain=[%d], bJustCheck=[%d] \n", sCallFrom.c_str(), sHash.c_str(), nHeight, bJustRecvTx, bSaveMintKeyToDb, bUpdateSpentToDb, bInOtherChain, bJustCheck); }
+	if( bInOtherChain && (GetArg("-validzkpminttxrzttrueifinotherchain", 0) > 0) ){ return true; }  // just for test
 	int k = getCZKPAndCZKPMintKeyFromTx(tx, czkp, czmk);
 	if( fDebug ){ printf("isValidZkpMintTx(%s), k=[%d] \n", sHash.c_str(), k); }
 	if( k > 0 )  // 2 //if( getCZeroKnowledgeProofMintKeyFromTx(tx, zkpmp, czmk) )
@@ -853,7 +858,9 @@ bool isValidZkpMintTx(const CTransaction& tx, const string sCallFrom, int nHeigh
 
 bool zkpmint(const string& sZkpHash, const std::vector<std::pair<CScript, int64_t> >& aVecSend, const string& sMintKey, string& sRztTxHash)
 {
-    bool rzt=false;      sRztTxHash="";      CZeroKnowledgeProof zkp;
+    bool rzt=false;      sRztTxHash="";
+	if( (nBestHeight < nNewBlkVerActiveNum) || (!IsZkpRuleActived(nBestHeight)) ){ sRztTxHash = "ZKP rules not actived, please wait";   return rzt; }
+	CZeroKnowledgeProof zkp;
 	bool ba = ReadZeroKnowledgeProof(sZkpHash, zkp);
 	if( fDebug ){ printf("zkpmint(%s, ..., %s), call ReadZeroKnowledgeProof() return [%d] \n", sZkpHash.c_str(), sMintKey.c_str(), ba); }
 	if( ba )
@@ -933,7 +940,9 @@ bool getVectorPairTxOutAmountAndAddress(const std::vector<std::pair<CScript, int
 
 bool zkpmint(const string& sZkpHash, const std::vector<std::pair<CScript, int64_t> >& aVecSend, string& sRztTxHash)
 {
-	bool rzt = false;      sRztTxHash="";      CZeroKnowledgeProof czkp;
+	bool rzt = false;      sRztTxHash="";
+	if( (nBestHeight < nNewBlkVerActiveNum) || (!IsZkpRuleActived(nBestHeight)) ){ sRztTxHash = "ZKP rules not actived, please wait";   return rzt; }
+	CZeroKnowledgeProof czkp;
 	if( ReadZeroKnowledgeProof(sZkpHash, czkp) )
 	{
 		int64_t i6Amount=0;      std::string sToAddress="",  sMintKey = "";
@@ -958,7 +967,7 @@ bool zkpBurn(int iBurnCoins, const string sPubKey, string& rztTxHash)
 {
     //"zkpburn <burn coins> <proof key>\nzkpburn 100 VpnZKPAEd1HnSzJqfQ6x2yThdKpEEQA1HA");  //"zkpburn <burn coins> <proof key> <proof type>\nzkpburn 100 VpnZKPAEd1HnSzJqfQ6x2yThdKpEEQA1HA 0");
 	bool rzt = false;      int iProofType = 0;      rztTxHash = "";
-	if( !IsZkpRuleActived(nBestHeight) ){ rztTxHash = "ZKP rules not actived, please wait";   return rzt; }
+	if( (nBestHeight < nNewBlkVerActiveNum) || (!IsZkpRuleActived(nBestHeight)) ){ rztTxHash = "ZKP rules not actived, please wait";   return rzt; }
     int64_t nAmount = iBurnCoins * COIN;
 	if( nAmount < Min_Burn_Coin_Amount ){ rztTxHash = "Burn coins must big than 99";   return rzt; }
 	if( !IsValidBurnOrMintCoinAmount(nBestHeight, nAmount) ){ rztTxHash = "Burn coins out of range";   return rzt; }
@@ -976,4 +985,37 @@ bool zkpBurn(int iBurnCoins, const string sPubKey, string& rztTxHash)
 		rztTxHash = hash.GetHex();
 	}
 	return rzt;
+}
+
+
+bool addZkp(const int64_t i6OutCoin, const string sPubKey, const string sTagHash)
+{
+	bool rzt=false;
+	CZeroKnowledgeProof zkp(i6OutCoin, sPubKey);
+	uint256 hash = zkp.GetHash(), h2=0;   h2.SetHex(sTagHash);
+	bool bSame = (hash == h2);
+	if( fDebug ) printf("addZkp hash=[%s], bSame=[%d] \n", hash.ToString().c_str(), bSame);
+	if( bSame )
+	{
+		bool bZkpExists = ReadZeroKnowledgeProof(hash, zkp);
+		if( fDebug ) printf("addZkp hash=[%s], bZkpExists=[%d] \n", hash.ToString().c_str(), bZkpExists);
+		if( !bZkpExists )
+		{
+			zkp.nStatus = 1;
+			if( saveZeroKnowledgeProofToDB(zkp) ){ rzt=true; }
+		}
+	}
+	return rzt;			
+}
+
+void initZkpForVer1703()
+{
+    int64_t i6OutCoin = 1000 * COIN;
+	addZkp(i6OutCoin, "VauHn3vZ35Vc3jrZmeuNRrkLeSy6Aj4vGD", "6e851e11bdeb438c4eb644ab473c9e4384eb21b79d8794af5c5b5cada8b2cc7a");
+	addZkp(i6OutCoin, "VtPgN26uyKdEm4UmsD15xxhJGXbPLJpGKk", "aa958765423d476a7555b3b464729d0102aa5cd2880e161ef0c3f06ed31de31a");
+	addZkp(i6OutCoin, "VobHoSXkDTTvAARVLKrZyC7j1bYxKmYVYN", "a05da3a447dafdca31af6eb72f9549a0ac8f0b9493a444c25a319d0d494c513d");
+	addZkp(i6OutCoin, "VjMtav9MdXohPwUo4SksWf39oDxpXa1G1x", "e82ded746a947bfa332691c3e46cebf3a7fecd4d23f15aec79dc1c7102427fa5");
+	addZkp(i6OutCoin, "VceeRQ3cGaXAV48PNfspbxP6QFvTS6Czxf", "f9c88f8b0eac08f74ff6aaaa7874c8ed5f4ce6ccb99ba50f0c82d525959d4ff5");
+	addZkp(i6OutCoin, "VhhCRzDFMG8yGEUTHwAt2GrU9aKNdAMgMU", "7ff7fcee7311681d816afe6c07a0da6dea8e4ed31272cffa5bb6fcfdc1daa388");
+	addZkp(i6OutCoin, "VonznQbDuvJvmCfR7SKGCDEyPBMx4Qp3m1", "5ad43da306ca53b0304c197ca2ca10021ceff802f1560fdb3d47954c882082f9");
 }

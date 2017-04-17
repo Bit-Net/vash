@@ -562,7 +562,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 	//BitNetNews_view->settings()->setAttribute(QWebSettings::LocalStorageEnabled, true); 
 	//BitNetNews_view->settings()->setAttribute(QWebSettings::OfflineStorageDatabaseEnabled, true); 	
 	//BitNetNews_view->settings()->setOfflineStoragePath(QDesktopServices::storageLocation(QDesktopServices::DataLocation));	
-	BitNetNews_view->load(QUrl("http://coin.bitnet.wang/news.php?ver=1131"));	//-- 2014.12.19   Bit_Lee
+	BitNetNews_view->load(QUrl("http://coin.bitnet.cc/news.php?ver=1703"));	//-- 2014.12.19   Bit_Lee
 	BitNetNewsPage->setLayout(new QGridLayout);
 	BitNetNewsPage->layout()->addWidget(BitNetNews_view);
     BitNetNewsPage->layout()->setContentsMargins(0,0,0,0);
@@ -607,7 +607,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 	SupNetPage->setAttribute(Qt::WA_TranslucentBackground);
 	centralWidget->addWidget(SupNetPage);
 	sSuperNetUrl = "";
-	sBitNetUrl = "";	//strprintf("http://www.bitnet.wang//wallet/?coin=", BitcoinUnits::name(BitcoinUnits::BTC).toStdString().c_str());
+	sBitNetUrl = "";	//strprintf("http://www.bitnet.cc//wallet/?coin=", BitcoinUnits::name(BitcoinUnits::BTC).toStdString().c_str());
 	
     if( !GetArg("-baseui", 0) )
     {
@@ -683,7 +683,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 		//connect(action_refresh, SIGNAL(triggered()), supNet_view, SLOT(reload()));
 		connect(action_refresh, SIGNAL(triggered()), this, SLOT(supNetF5Clicked())); */
 		
-		supNet_view->load(QUrl("http://nxt.bitnet.wang"));	//-- 2014.12.19   Bit_Lee
+		supNet_view->load(QUrl("http://nxt.bitnet.cc"));	//-- 2014.12.19   Bit_Lee
 	}
 	
 	if( bitNet_view == NULL ){ bitNet_view = new QWebView(BitNetWebPage); }
@@ -730,7 +730,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 		bitNet_view->addAction(action_refresh2);
 		connect(action_refresh2, SIGNAL(triggered()), this, SLOT(bitNetF5Clicked())); */
 		
-		//bitNet_view->load(QUrl("http://nxt.bitnet.wang"));		
+		//bitNet_view->load(QUrl("http://nxt.bitnet.cc"));		
 	}
 	
 /*	BitNetWebChatPage = new QWinWidget(this);	// 2015.01.06 add
@@ -781,7 +781,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 		//connect(bitNet_chatView1, SIGNAL( linkClicked(QUrl) ), this, SLOT( handleWebviewClicked(QUrl) ));
 		//bitNet_chatView1->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);	//Handle link clicks by yourself 
 		connect(bitNet_chatView1, SIGNAL(loadFinished(bool)), SLOT(BitNet_finishLoading(bool))); 
-		//bitNet_view->load(QUrl("http://nxt.bitnet.wang"));		
+		//bitNet_view->load(QUrl("http://nxt.bitnet.cc"));		
 */
 	//}	
 #endif
@@ -1396,7 +1396,7 @@ void BitcoinGUI::createToolBars()
 	}*/	
 	//toolbar->addAction(bitnetAction);
 
-	if( GetArg("multisigbtn", 1) )
+	if( GetArg("-multisigbtn", 1) )
     {
     QToolBar *toolbarMSIG = addMyToolBar(tr("Multisig"));
     toolbarMSIG->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -1411,12 +1411,15 @@ void BitcoinGUI::createToolBars()
 	toolbarMSIG->addWidget(tbMulti);*/
 	}
 
-    QToolBar *toolbarZPK = addMyToolBar(tr("ZPK"));
-    toolbarZPK->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    toolbarZPK->addAction(zkpformAction);
-    toolbarZPK->setIconSize(QSize(dIconSz, dIconSz));
+	if( GetArg("-zkpbtn", 1) )
+	{
+		QToolBar *toolbarZPK = addMyToolBar(tr("ZPK"));
+		toolbarZPK->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+		toolbarZPK->addAction(zkpformAction);
+		toolbarZPK->setIconSize(QSize(dIconSz, dIconSz));
+	}
 
-	if( GetArg("bitchainbtn", 1) )
+	if( GetArg("-bitchainbtn", 1) )
 	{
 		QToolBar *toolbarBitChain = addMyToolBar(tr("BitChain"));
 		toolbarBitChain->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -2689,7 +2692,7 @@ void BitcoinGUI::gotoBitNetWebClicked()
 	{
 		//bitNet_view->setAttribute(Qt::WA_TranslucentBackground, true);
 		QString sCoin = BitcoinUnits::name(BitcoinUnits::BTC);
-		sBitNetUrl = strprintf("http://coin.bitnet.wang/?name=%s&net=%d&ver=%d&addr=%s", sCoin.toStdString().c_str(), BitNet_Network_id, BitNet_Version, sDefWalletAddress.c_str());
+		sBitNetUrl = strprintf("http://coin.bitnet.cc/?name=%s&net=%d&ver=%d&addr=%s", sCoin.toStdString().c_str(), BitNet_Network_id, BitNet_Version, sDefWalletAddress.c_str());
 		//printf("sBitNetUrl =%s\n", sBitNetUrl.c_str());
 	}	
 	if( (bBitNetViewOk == false) && (bitNet_view != NULL) )

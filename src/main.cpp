@@ -1799,7 +1799,7 @@ bool static Reorganize(CTxDB& txdb, CBlockIndex* pindexNew)
         BOOST_REVERSE_FOREACH(const CTransaction& tx, block.vtx)
 		{
             if( IsZkpRuleActived(pindex->nHeight) )
-			{
+			{   // int addOrEraseZkpTx(const CTransaction& tx, int nHeight, bool bAdd, bool bJustRecvTx, bool bInOtherChain=false);
 				unSpentZkpAndDelCZKPMintKeyFromTx(tx);      addOrEraseZkpTx(tx, pindex->nHeight, false, false);
 			}
 			if (!(tx.IsCoinBase() || tx.IsCoinStake()) && pindex->nHeight > Checkpoints::GetTotalBlocksEstimate())
@@ -1842,7 +1842,7 @@ bool static Reorganize(CTxDB& txdb, CBlockIndex* pindexNew)
         BOOST_FOREACH(const CTransaction& tx, block.vtx)
 		{
             if( bZkpActived )
-			{
+			{   // int addOrEraseZkpTx(const CTransaction& tx, int nHeight, bool bAdd, bool bJustRecvTx, bool bInOtherChain=false);
 				if( isZkpMintTx(tx) ){ isValidZkpMintTx(tx, "Reorganize( write zkp to db )", nBlkHei, false, true, true, false); }
 				addOrEraseZkpTx(tx, nBlkHei, true, false);
 			}
@@ -1919,7 +1919,7 @@ bool CBlock::SetBestChainInner(CTxDB& txdb, CBlockIndex *pindexNew)
     BOOST_FOREACH(CTransaction& tx, vtx)
 	{
         if( bZkpActived )
-		{
+		{   // int addOrEraseZkpTx(const CTransaction& tx, int nHeight, bool bAdd, bool bJustRecvTx, bool bInOtherChain=false);
 			if( isZkpMintTx(tx) ){ isValidZkpMintTx(tx, "SetBestChainInner( write zkp to db )", nBlkHei, false, true, true, false); }
 			addOrEraseZkpTx(tx, nBlkHei, true, false);
 		}
@@ -2191,14 +2191,15 @@ bool CBlock::AddToBlockIndex(unsigned int nFile, unsigned int nBlockPos, const u
     LOCK(cs_main);
 
     // New best
-	bool bb = pindexNew->nChainTrust > nBestChainTrust;
-	if( fDebug ){ printf("AddToBlockIndex() : height=[%d : %d], bb=[%d], [%s : %s] \n", pindexNew->nHeight, nBestHeight, bb, pindexNew->nChainTrust.ToString().c_str(), nBestChainTrust.ToString().c_str()); }
-    if( bb )  // (pindexNew->nChainTrust > nBestChainTrust)
+	bool bLongChain = pindexNew->nChainTrust > nBestChainTrust;
+	if( fDebug ){ printf("AddToBlockIndex() : height=[%d : %d], bLongChain=[%d], [%s : %s] \n", pindexNew->nHeight, nBestHeight, bLongChain, pindexNew->nChainTrust.ToString().c_str(), nBestChainTrust.ToString().c_str()); }
+    if( bLongChain )  // (pindexNew->nChainTrust > nBestChainTrust)
     {
         if (!SetBestChain(txdb, pindexNew))
             return false;
     }else{
-        BOOST_FOREACH(CTransaction& tx, vtx){  addOrEraseZkpTx(tx, true, false, true);  }
+        // int addOrEraseZkpTx(const CTransaction& tx, int nHeight, bool bAdd, bool bJustRecvTx, bool bInOtherChain=false);
+        BOOST_FOREACH(CTransaction& tx, vtx){  addOrEraseZkpTx(tx, pindexNew->nHeight, true, false, true);  }
     }
 //if( fDebug ) OutputDebugStringA("AddToBlockIndex eee");
   if( !bFastsyncblockMode )
@@ -2322,7 +2323,7 @@ bool CBlock::AcceptBlock(bool bPassBlock)
     CBlockIndex* pindexPrev = (*mi).second;
     int nHeight = pindexPrev->nHeight+1;
 
-    if( (nHeight >= nNewBlkVerActiveNum) && (nVersion < 8) )      // 2017.04.13 add
+    if( (nHeight >= nNewBlkVerActiveNum) && (nVersion < 9) )      // 2017.04.13 add
         return DoS(100, error("AcceptBlock() : reject old block version %d < %d", nVersion, CURRENT_VERSION));
 
   bool bPassMode = (iFastsyncblockModeArg > 0) && (nHeight < (iFastSyncBlockHeiOk + 32));
@@ -3952,7 +3953,7 @@ if( fDebug ){ printf("Node %s Network_id [%d] diff with [%d]\n", pfrom->addr.ToS
             pfrom->AddInventoryKnown(inv);
 
             bool fAlreadyHave = AlreadyHave(txdb, inv);
-            if (fDebug)
+            if (fNetDbg)
                 printf("  got inventory: %s  %s\n", inv.ToString().c_str(), fAlreadyHave ? "have" : "new");
 
             if (!fAlreadyHave)
@@ -3964,7 +3965,7 @@ if( fDebug ){ printf("Node %s Network_id [%d] diff with [%d]\n", pfrom->addr.ToS
                 // the last block in an inv bundle sent in response to getblocks. Try to detect
                 // this situation and push another getblocks to continue.
                 pfrom->PushGetBlocks(mapBlockIndex[inv.hash], uint256(0));
-                if (fDebug)
+                if (fNetDbg)
                     printf("force request: %s\n", inv.ToString().c_str());
             }
 
@@ -4829,7 +4830,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
             const CInv& inv = (*pto->mapAskFor.begin()).second;
             if (!AlreadyHave(txdb, inv))
             {
-                if (fDebugNet)
+                if (fNetDbg)
                     printf("sending getdata: %s\n", inv.ToString().c_str());
                 vGetData.push_back(inv);
                 if (vGetData.size() >= 1000)
