@@ -46,6 +46,8 @@ Q_IMPORT_PLUGIN(qkrcodecs)
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
 #endif
 
+using namespace boost;
+
 // Need a global reference for the notifications to find the GUI
 static BitcoinGUI *guiref;
 static SplashScreen *splashref;
@@ -143,6 +145,12 @@ std::string getBlockChainSettings()
     QSettings settings;
     QString s = settings.value("BlockChainDir").toString();
 	return s.toStdString();
+}
+
+bool dirExists(const std::string sDir)
+{
+    filesystem::path pathDir = sDir;
+    return filesystem::exists(pathDir);
 }
 
 QString lang_territory = "";
@@ -263,7 +271,10 @@ int main(int argc, char *argv[])
 
         //bool bInit = AppInit2();
         std::string s_settings_BlockChainDir = getBlockChainSettings();  // 2016.02.02 add
-        if( s_settings_BlockChainDir.length() > 2 ){ mapArgs["-datadir"] = s_settings_BlockChainDir; }
+        if( s_settings_BlockChainDir.length() > 2 )
+        {
+            if( dirExists(s_settings_BlockChainDir) ){ mapArgs["-datadir"] = s_settings_BlockChainDir; }
+        }
 
         iBitChainService = GetArg("-bitchainservice", 0);
 		iShowBitChainTipMsg = GetArg("-showbitchaintipmsg", 1);

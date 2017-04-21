@@ -1,13 +1,4 @@
 
-About BitChain
-===========================
-
-BitChain is a blockchain protocol, developed by "Shenzhen BitChain Technology Company",<br />
-It can store text, pictures, sound, video and other data to blockchain,<br />
-and easy to link reality things.<br />
-[BitChain Official website: http://www.bitchaing.com](http://www.bitchaing.com)<br />
-![alt tag](http://i.imgur.com/Q325O77.png)<br />
-
 About VpnCoin
 ===========================
 
@@ -20,6 +11,16 @@ And VpnCoin is a PoS-based cryptocurrency.<br />
 [Twitter: https://twitter.com/vpn_dev](https://twitter.com/vpn_dev)<br />
 [Facebook: https://www.facebook.com/BitNetTeam](https://www.facebook.com/BitNetTeam)<br />
 ![alt tag](http://i.imgur.com/P7OYrDS.png)<br />
+
+
+About BitChain
+===========================
+
+BitChain is a blockchain protocol, developed by "Shenzhen BitChain Technology Company",<br />
+It can store text, pictures, sound, video and other data to blockchain,<br />
+and easy to link reality things.<br />
+[BitChain Official website: http://www.bitchaing.com](http://www.bitchaing.com)<br />
+![alt tag](http://i.imgur.com/Q325O77.png)<br />
 
 
 Development process

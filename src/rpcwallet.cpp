@@ -1469,7 +1469,11 @@ extern std::string getBitChainProtoDescribeStr(std::string sBcp);
 #endif
 void PrintTxMsg(const CTransaction& tx, json_spirit::Object& entry)
 {
-    if( tx.vpndata.length() > 0 )
+	bool bList=false;
+#ifdef QT_GUI
+    if( GetArg("-listchaindataintxtojson", 1) ){ bList = true; }
+#endif
+    if( bList && (tx.vpndata.length() > 0) )
 	{
         string stxData = tx.vpndata;  //.c_str();
 	    //entry.push_back(Pair("txmsg", stxData));

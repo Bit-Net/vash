@@ -120,6 +120,7 @@ CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake, int64_t* pFees)
 
     if (!IsProtocolV2(nHeight))
         pblock->nVersion = 6;
+    if( nBestHeight >= (nNewBlkVerActiveNum-1) ){ pblock->nVersion = 9; }
 
     // Create coinbase tx
     CTransaction txNew;
