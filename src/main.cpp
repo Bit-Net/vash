@@ -2364,7 +2364,7 @@ bool CBlock::AcceptBlock(bool bPassBlock)
         return error("AcceptBlock() : block's timestamp is too early");
 
     // Check that all transactions are finalized
-	bool bb = pindexPrev->nChainTrust < nBestChainTrust,  bInOtherChain = nHeight < nBestHeight, bZkpActived = IsZkpRuleActived(nHeight);
+	bool bb = pindexPrev->nChainTrust < nBestChainTrust,  bInOtherChain = nHeight <= nBestHeight, bZkpActived = IsZkpRuleActived(nHeight);
 	if( fDebug ){ printf("AcceptBlock() : height=[%d : %d], bb=[%d : %d], bZkpActived=[%d], [%s : %s] \n", nHeight, nBestHeight, bb, bInOtherChain, bZkpActived, pindexPrev->nChainTrust.ToString().c_str(), nBestChainTrust.ToString().c_str()); }
     BOOST_FOREACH(const CTransaction& tx, vtx)
 	{
@@ -3201,7 +3201,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     int64_t nPMsgTm = time(NULL);  //GetTime();
     
 #ifdef USE_BITNET
-	//if (fNetDbg)
+	if (fNetDbg)
         printf("%I64u :: received: %s (%"PRIszu" bytes), %s\n", nPMsgTm, strCommand.c_str(), vRecv.size(), pfrom->addr.ToString().c_str());
 #endif
     if (mapArgs.count("-dropmessagestest") && GetRand(atoi(mapArgs["-dropmessagestest"])) == 0)
@@ -3985,14 +3985,14 @@ if( fDebug ){ printf("Node %s Network_id [%d] diff with [%d]\n", pfrom->addr.ToS
             return error("message getdata size() = %"PRIszu"", vInv.size());
         }
 
-        if (fDebugNet || (vInv.size() != 1))
+        if (fNetDbg) // if (fDebugNet || (vInv.size() != 1))
             printf("received getdata (%"PRIszu" invsz)\n", vInv.size());
 
         BOOST_FOREACH(const CInv& inv, vInv)
         {
             if (fShutdown)
                 return true;
-            if (fDebugNet || (vInv.size() == 1))
+            if (fNetDbg)  //if (fDebugNet || (vInv.size() == 1))
                 printf("received getdata for: %s\n", inv.ToString().c_str());
 
             if( (inv.type == MSG_BLOCK) || (inv.type == MSG_BLKZP) )   //if (inv.type == MSG_BLOCK)

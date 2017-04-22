@@ -1,4 +1,4 @@
-VpnCoin 1.1.2.4 BETA
+VpnCoin 1.7.0.4 BETA
 
 Copyright (c) 2013 NovaCoin Developers
 Copyright (c) 2011-2013 PPCoin Developers

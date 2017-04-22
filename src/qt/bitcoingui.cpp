@@ -375,7 +375,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 	//resize(850, 550);
 	restoreWindowGeometry();
     //setWindowTitle(tr("VpnCoin Test") + " - " + tr("Wallet"));
-	setWindowTitle(tr("VpnCoin") + " - " + tr("Wallet"));
+    QString qTitle = tr("VpnCoin") + " - " + tr("Wallet") + " - 1.7.0.4";
+	setWindowTitle(qTitle);
 	fMainFrame = new MainFrame();
     //f2MainWindow =  fMainFrame->getToolBarWin();   
 	f2MainWindow = new QMainWindow();
@@ -416,7 +417,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     logoLabel->setFixedSize(16 * DOB_DPI_RAT, 16 * DOB_DPI_RAT);  
     logoLabel->setScaledContents(true);
   
-    titleLabel = new QLabel();      QString qTitle = tr("VpnCoin") + " - " + tr("Wallet");
+    titleLabel = new QLabel();      //QString qTitle = tr("VpnCoin") + " - " + tr("Wallet");
 	//if( fTestNet ){ qTitle = qTitle + QString(" ") + tr("[testnet]"); }
     titleLabel->setText( qTitle );
     QFont titleFont = titleLabel->font();  

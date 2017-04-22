@@ -567,7 +567,7 @@ unsigned int GetStakeModifierChecksum(const CBlockIndex* pindex)
 }
 
 // Check stake modifier hard checkpoints
-int nLastCheckednHeight=-1;
+int nLastErrornHeight=-1, nLastOknHeight=-1;
 bool CheckStakeModifierCheckpoints(int nHeight, unsigned int nStakeModifierChecksum)
 {
     if( iFastsyncblockModeArg > 0 )
@@ -584,8 +584,17 @@ bool CheckStakeModifierCheckpoints(int nHeight, unsigned int nStakeModifierCheck
         if( fDebug ){ printf("CheckStakeModifierCheckpoints :: nHeight [%u], [0x%x : 0x%x] \n", nHeight, nStakeModifierChecksum, checkpoints[nHeight]); }
 #endif
         bool b = ( nStakeModifierChecksum == checkpoints[nHeight] );
-        if( nLastCheckednHeight != nHeight ){ nLastCheckednHeight = nHeight; }
-        else{ b = true; }
+        if( b ){ nLastOknHeight = nHeight; }
+		else{
+		    if( nHeight == nLastOknHeight ){ b=true;   nLastErrornHeight = -1; }
+			else if( (nLastErrornHeight <= 0) || (nLastErrornHeight == nHeight) ) { nLastErrornHeight = nHeight;      return true; }
+		}
+		if( nLastErrornHeight > 0 )
+		{
+			if( nHeight != nLastErrornHeight ) { return false; }
+			else if( b ){ nLastErrornHeight = -1; }
+		}
+
         return b;
     }
     return true;

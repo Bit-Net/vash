@@ -102,7 +102,7 @@ double fVpn_Btc_price = 0.0;
 int bUpdate_price_now = 0;
 
 std::string sQkl_domain = "www.qkl.im";  // www.qkl.io
-int BitNet_Version = 1702;
+int BitNet_Version = 1704;
 int BitNet_Network_id = 1;  // VpnCoin = 1
 
 

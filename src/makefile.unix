@@ -3,6 +3,7 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 USE_UPNP:=0
+STATIC:=1
 
 LINK:=$(CXX)
 ARCH:=$(system lscpu | head -n 1 | awk '{print $2}')
@@ -80,7 +81,8 @@ LIBS+= \
     HARDENING+=-D_FORTIFY_SOURCE=2
 #
 
-
+LDHARDENING+=-static-libstdc++
+LDHARDENING+=-static-libgcc
 DEBUGFLAGS=-g
 
 

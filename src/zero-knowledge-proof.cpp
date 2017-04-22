@@ -621,7 +621,7 @@ int addOrEraseZkpTx(const CTransaction& tx, int nHeight, bool bAdd, bool bJustRe
 			    }
 			}
 		}
-		if( fDebug ) printf("addOrEraseZkpTx bAdd=[%d], rzt=[%d] \n", bAdd, rzt);
+		if( fDebug ) printf("addOrEraseZkpTx bAdd=[%d], rzt=[%d] \n\n", bAdd, rzt);
 	}
 	return rzt;
 }
@@ -782,7 +782,7 @@ bool unSpentZkpAndDelCZKPMintKeyFromTx(const CTransaction& tx)
 			}else if( fDebug ){ printf("unSpentZkpAndDelCZKPMintKeyFromTx(%s), i6(%s) < 0  :(\n", sHash.c_str(), int64tostr(i6).c_str()); }
 		}
 		if( fDebug ){ printf("unSpentZkpAndDelCZKPMintKeyFromTx(%s), b=[%d], i6Amount=[%s], n6Spent=[%s] [%s] \n", sHash.c_str(), b, int64tostr(i6Amount).c_str(), int64tostr(czkp.n6Spent).c_str(), sToAddress.c_str()); }
-		if( fDebug ){ printf("unSpentZkpAndDelCZKPMintKeyFromTx(%s), rzt=[%d], k=[%d] \n", sHash.c_str(), rzt, k); }
+		if( fDebug ){ printf("unSpentZkpAndDelCZKPMintKeyFromTx(%s), rzt=[%d], k=[%d] \n\n", sHash.c_str(), rzt, k); }
 	}
 	return rzt;
 }
@@ -814,7 +814,8 @@ bool isValidZkpMintTx(const CTransaction& tx, const string sCallFrom, int nHeigh
 		if( !bJustCheck )
 		{
 			if( bJustRecvTx && (k > 1) && (!isZeroKnowledgeProofMintTxInDB(tx)) ){ gLastCheckZkpMintTxErrorIdx = 1;   return rzt; }  // Mint Tx has record in db, return false
-			if( !bJustRecvTx && (czmk.nStatus > 0) ){ gLastCheckZkpMintTxErrorIdx = 2;   return rzt; }  // Mint Tx key has used, return false
+			// if( !bJustRecvTx && (czmk.nStatus > 0) ){ gLastCheckZkpMintTxErrorIdx = 2;   return rzt; }  // Mint Tx key has used, return false
+			if( !bInOtherChain && !bJustRecvTx && (czmk.nStatus > 0) ){ gLastCheckZkpMintTxErrorIdx = 2;   return rzt; }  // Mint Tx key has used, return false
 		}
 		//CZeroKnowledgeProof czkp;
 		//if( !ReadZeroKnowledgeProof(zkpmp.sZkpHash, czkp) ){ return rzt; }
@@ -830,7 +831,8 @@ bool isValidZkpMintTx(const CTransaction& tx, const string sCallFrom, int nHeigh
 			}
 			if( fDebug ){ printf("isValidZkpMintTx(%s), i6Amount=[%s :: %s :: %s] \n", sHash.c_str(), int64tostr(i6Amount).c_str(), int64tostr(czkp.n6Spent).c_str(), int64tostr(czkp.n6Coins).c_str()); }
 			if( bJustRecvTx && !czkp.CheckSpent(i6Amount) ){ gLastCheckZkpMintTxErrorIdx = 5;   return rzt; }
-			if( !czkp.CanSpent(i6Amount) ){ gLastCheckZkpMintTxErrorIdx = 6;   return rzt; }
+			// if( !czkp.CanSpent(i6Amount) ){ gLastCheckZkpMintTxErrorIdx = 6;   return rzt; }
+			if( !bInOtherChain && !czkp.CanSpent(i6Amount) ){ gLastCheckZkpMintTxErrorIdx = 6;   return rzt; }
 			string signAddr = czkp.GetProofKeys();
 			bool bc = isValidZkpMintKey(i6Amount, sToAddress, signAddr, sMintKey);
 			if( fDebug ){ printf("isValidZkpMintTx(%s), call isValidZkpMintKey() return [%d], isValidZkpMintKey(%s, %s, %s, %s) \n", sHash.c_str(), bc, int64tostr(i6Amount).c_str(), sToAddress.c_str(), signAddr.c_str(), sMintKey.c_str()); }
