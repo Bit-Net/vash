@@ -13,7 +13,7 @@ QWidget
 
 BitcoinGUI
 {
-   background-image: url(Res/ui/mainwnd.jpg) 0 0 0 0 stretch stretch;
+   background-image: url(:/images/mainwnd) 0 0 0 0 stretch stretch;
    border:2px solid #D0D0D0;
    border-radius:2px;
 }
@@ -1060,7 +1060,7 @@ QToolBar::separator
 
 QToolButton::checked, QToolButton::hover, QToolButton::pressed
 {
-    background-image: url(Res/ui/QToolButton_bg.png);
+    background-image: url(:/images/QToolButton_bg);
     border-left: 2px solid qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #408C4C, stop:1 #FCFCFC);
     border-right: 2px solid qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #408C4C, stop:1 #FCFCFC);
 }

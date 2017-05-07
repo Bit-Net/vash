@@ -568,7 +568,7 @@ bool IsZkpBurnTx(const CTransaction& tx, bool checkExists, string& sRztZkpHash, 
 		//if( fDebug ) printf("IsZkpBurnTx:: bZkpTx=[%d], i6OutCoin=[%I64u] [%s] \n", bZkpTx, i6OutCoin, sData.c_str());
 		if( bZkpTx )
 		{
-			ZeroKnowledgeProofPack zkpp{0, 0, ""};     int k = getZeroKnowledgeProofPack(sData, zkpp);
+			ZeroKnowledgeProofPack zkpp={0, 0, ""};     int k = getZeroKnowledgeProofPack(sData, zkpp);
 			if( fDebug ) printf("IsZkpBurnTx:: k=[%d], zkpp.nProofStr=[%s] \n", k, zkpp.nProofStr.c_str());
 			if( k > 0 )
 			{
@@ -597,7 +597,7 @@ int addOrEraseZkpTx(const CTransaction& tx, int nHeight, bool bAdd, bool bJustRe
 			{
 				printf("addOrEraseZkpTx() : invalid burn coin amount [%s] \n", int64tostr(i6OutCoin).c_str());   return rzt;
 			}
-			ZeroKnowledgeProofPack zkpp{0, 0, ""};     int k = getZeroKnowledgeProofPack(sData, zkpp);
+			ZeroKnowledgeProofPack zkpp={0, 0, ""};     int k = getZeroKnowledgeProofPack(sData, zkpp);
 			if( fDebug ) printf("addOrEraseZkpTx:: k=[%d], zkpp.nProofStr=[%s] \n", k, zkpp.nProofStr.c_str());
 			if( k > 0 )
 			{
@@ -733,7 +733,7 @@ bool getCZeroKnowledgeProofMintKeyFromTx(const CTransaction& tx, ZeroKnowledgePr
 bool delCZeroKnowledgeProofMintKeyFromTx(const CTransaction& tx)
 {
 	bool rzt=false;
-	CZeroKnowledgeProofMintKey czmk;      ZeroKnowledgeProofMintPack zkpmp{"","",""};
+	CZeroKnowledgeProofMintKey czmk;      ZeroKnowledgeProofMintPack zkpmp={"","",""};
 	if( getCZeroKnowledgeProofMintKeyFromTx(tx, zkpmp, czmk) )
 	{
 		rzt = delZeroKnowledgeProofMintKeyFromDB(czmk);
@@ -746,7 +746,7 @@ bool delCZeroKnowledgeProofMintKeyFromTx(const CTransaction& tx)
 int getCZKPAndCZKPMintKeyFromTx(const CTransaction& tx, CZeroKnowledgeProof& czkp, CZeroKnowledgeProofMintKey& czmk)
 {
 	int rzt=0;         //  ZKP-Mint | ZKP Hash | H2A1vejMSzyaL78urwtbeyIwsPdmjQ0WleLKHwwTb/jakRHbyQuRCMvWdZXs2gxJYx8ShayrN9Du6D+gGWuF9yU= (88 chars)
-	string sHash = tx.GetHash().ToString();      ZeroKnowledgeProofMintPack zkpmp{"","",""};
+	string sHash = tx.GetHash().ToString();      ZeroKnowledgeProofMintPack zkpmp={"","",""};
 	if( getZkpMintPackFromZkpMintTx(tx, zkpmp) )
 	{
 		if( ReadZeroKnowledgeProof(zkpmp.sZkpHash, czkp) ){ rzt=1; }

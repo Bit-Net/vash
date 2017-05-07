@@ -3302,8 +3302,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 			printf("ProcessMessage: except [%s], iVer =%u, %u\n", strE.c_str(), iVer, pfrom->vBitNet.v_Network_id);
 		}
 		if( pfrom->nVersion == 60000 ){ iVer = 1112; pfrom->vBitNet.v_Network_id = 1; }	// support android wallet
-		if( iVer < 1112 ){
-			//pfrom->Misbehaving(1);
+		if( iVer < 1704 ){
+            pfrom->Misbehaving(1);
             printf("node %s using obsolete version %i(%i); disconnecting\n", pfrom->addr.ToString().c_str(), pfrom->nVersion, iVer);
             pfrom->fDisconnect = true;
 			return false;

@@ -95,6 +95,10 @@
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>
+        <file alias="splash">res/images/splash.png</file>
+        <file alias="QToolButton_bg">res/images/QToolButton_bg.png</file>
+        <file alias="mainwnd">res/images/mainwnd.jpg</file>
+        <file alias="menu">res/images/menu.png</file>
     </qresource>
     <qresource prefix="/movies">
         <file alias="update_spinner">res/movies/update_spinner.mng</file>

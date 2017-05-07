@@ -194,7 +194,7 @@ void ZkpForm::on_pb_genKey_clicked()
 
 void ZkpForm::on_pb_Mint_clicked()
 {
-	ZeroKnowledgeProofMintOutPack zmop{"", "",  0, ""};      string sMintOutKey = ui->le_m_zkpHash->text().toStdString();
+	ZeroKnowledgeProofMintOutPack zmop={"", "",  0, ""};      string sMintOutKey = ui->le_m_zkpHash->text().toStdString();
 	int k = getZeroKnowledgeProofMintOutPack(sMintOutKey, zmop);
 	if( fDebug ){ printf("on_pb_Mint_clicked: k=%d, [%s] \n", k, sMintOutKey.c_str()); }
 	if( k < 5 ){ ui->le_m_zkpHash->clear();   return; }

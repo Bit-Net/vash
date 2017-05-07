@@ -249,7 +249,7 @@ int main(int argc, char *argv[])
 	double dx = (double)dpiX / 96;
 	DOB_DPI_RAT = dx;
 #endif	
-	std::string sLab = GetArg("-splashbg", "Res/splash.png");
+	std::string sLab = GetArg("-splashbg", ":/images/splash");
 	QString qImg = QString::fromStdString(sLab);	
     SplashScreen splash(QPixmap(qImg), 0);    //SplashScreen splash(QPixmap(":/images/splash"), 0);
 

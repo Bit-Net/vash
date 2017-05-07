@@ -330,7 +330,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
                                      "QScrollBar::sub-line:horizontal { background: #444444; width: 16px; subcontrol-position: left; subcontrol-origin: margin; }"
                                      "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal { background: none; }"
                                      "QScrollBar:left-arrow:horizontal, QScrollBar:right-arrow:horizontal { border: 2px solid #333333; width: 6px; height: 6px; background: #5f5f5f; }";
-
+    appMenuBar = NULL;
 #ifdef WIN32
     //if( lang_territory.indexOf("zh_CN") != -1 )
 	{ MAIN_FONTSTACK = '"Microsoft YaHei", Arial, Helvetica, sans-serif, "ËÎÌו" !important'; }
@@ -444,7 +444,11 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 	if( DOB_DPI_RAT > 0 ) closePixmap = setDevicePixelRatio(closePixmap, DOB_DPI_RAT);
     closeButton->setIcon(closePixmap);  
 	//closeButton->setText("x");
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));  
+#ifndef Q_OS_MAC
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(close())); 
+#else
+    connect(closeButton, SIGNAL(clicked()), qApp, SLOT(quit())); 
+#endif
   
     QHBoxLayout *titleLayout = new QHBoxLayout();  
     titleLayout->addWidget(logoLabel);  
@@ -956,16 +960,14 @@ BitcoinGUI::~BitcoinGUI()
 		if( pixmap != NULL ) delete pixmap;
 	}
 	if( (aniIconTmer != NULL) && aniIconTmer->isActive() ){ aniIconTmer->stop(); }
-	delete aniIconTmer;
+	if( aniIconTmer != NULL ){ delete aniIconTmer; }
 	if( (clipTmer != NULL) && clipTmer->isActive() ){ clipTmer->stop(); }
-	delete clipTmer;
-    delete multisigPage;
+	if( clipTmer != NULL ){ delete clipTmer; }
+    //delete multisigPage;
 	saveWindowGeometry();
     if(trayIcon) // Hide tray icon, as deleting will let it linger until quit (on Ubuntu)
         trayIcon->hide();
-#ifdef Q_OS_MAC
-    delete appMenuBar;
-#endif
+    if( appMenuBar != NULL ) delete appMenuBar;
 }
 
 void BitcoinGUI::createActions()
@@ -1182,7 +1184,7 @@ void BitcoinGUI::appQuit()
 #ifndef Q_OS_MAC // Ignored on Mac
     qApp->quit();
 #else
-    quit();
+    //quit();
 #endif
 }
 
@@ -1275,7 +1277,7 @@ if( GetArg("-menubar", 0) == 0 )	// 2014.12.19 Bit_Lee
 	QAction *settingsAction = new QAction(QIcon(":/icons/options"), tr("&Settings"), this);
 	QAction *helpAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Help"), this);	
 	QToolButton *menuButton = new QToolButton(this); 
-	menuButton->setIcon(QIcon("Res/menu.png"));
+	menuButton->setIcon(QIcon(":/images/menu"));
 	//menuButton->setStatusTip(tr("Show Menu"));
 	menuButton->setText(tr("Menu"));
     //menuButton->setToolTip(tr("Menu"));	

@@ -1028,14 +1028,20 @@ dw_zip_block = isBlockChainCompressed(strDataDir, dw_zip_block);
     //    return InitError(strprintf(_("Wallet %s resides outside data directory %s."), strWalletFileName.c_str(), strDataDir.c_str()));
 
     boost::filesystem::path pcu = boost::filesystem::current_path();
+#ifndef WIN32
+	s_BlockChain_AdBonus_Dir = strDataDir + "/";
+	s_BlockChain_Dir = s_BlockChain_AdBonus_Dir;
+    //printf("Current dir is [%s] [%s] \n", sCurDir.c_str(), s_BlockChain_Dir.c_str());
+#else
 	s_BlockChain_AdBonus_Dir = pcu.string().c_str(); // + "\\BlockChain\\AdBonus\\";
-	s_BlockChain_Dir = s_BlockChain_AdBonus_Dir + "//BlockChain//";
+	s_BlockChain_Dir = s_BlockChain_AdBonus_Dir + "/BlockChain/";
 	boost::filesystem::create_directory(s_BlockChain_Dir);
-	std::string sBlock = s_BlockChain_Dir + "block//";
-	boost::filesystem::create_directory(sBlock);
+	//std::string sBlock = s_BlockChain_Dir + "block//";
+	//boost::filesystem::create_directory(sBlock);
 	s_fastSyncBlock_ini = s_BlockChain_Dir + "fastsyncblock.ini";
-	s_BlockChain_AdBonus_Dir = s_BlockChain_Dir + "AdBonus//";
-	boost::filesystem::create_directory(s_BlockChain_AdBonus_Dir);
+#endif
+	s_BlockChain_AdBonus_Dir = s_BlockChain_Dir;  // + "AdBonus//";
+
 	// Make sure only a single Bitcoin process is using the data directory.
     boost::filesystem::path pathLockFile = GetDataDir() / ".lock";
     FILE* file = fopen(pathLockFile.string().c_str(), "a"); // empty lock file; created if it doesn't exist.
