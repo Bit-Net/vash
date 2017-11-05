@@ -57,6 +57,7 @@ const int ZKP_Rule_Active_Block_B_100K = 1166100 + (100000 * 3);   // about acti
 const int ZKP_Rule_Active_Block_C_1M = 1166100 + (100000 * 6);      // about actived at 2018.03.20
 const int ZKP_Rule_Active_Block_D_10M = 1166100 + (100000 * 8);
 const int ZKP_Rule_Active_Block_E_100M = 1166100 + (100000 * 9);
+const int BLK_NUMB_156W = 1560000;
 
 extern string s_BlockChain_Dir;
 extern string sBitChainIdentAddress;
@@ -66,6 +67,7 @@ extern string signMessage(const string strAddress, const string strMessage);
 extern int signMessageWithoutBase64(const string strAddress, const string strMessage, string& sRzt);
 extern bool verifyMessage(const string strAddress, const string strSign, const string strMessage);
 extern bool getTxinAddressAndAmount(const CTxIn& txin, string& sPreTargetAddr, int64_t& iAmnt);
+int  GetZkpTxOutDetails(const std::vector<CTxOut> &vout, std::vector<txOutPairPack > &outPair);
 
 int gLastCheckZkpMintTxErrorIdx = 0;
 inline std::string u64tostr(uint64_t n)
@@ -86,6 +88,17 @@ int64_t strToInt64(const char *s, int iBase)
 int64_t strToInt64(const string s, int iBase)
 {
    return strtoll(s.c_str(), NULL, iBase);
+}
+
+bool CheckOutPairPack(int idx, txOutPairPack& opp, const CTxOut& txout)
+{
+	bool rzt=false;
+	if( nBestHeight >= BLK_NUMB_156W )
+	{
+		if( (idx > 1) && (opp.sAddr.length() > 63) ){ return rzt; }
+	}
+	opp.v_nValue = txout.nValue;      rzt=true;
+	return rzt;
 }
 
 int64_t GetMaxZkpMintCoinAmount(int nHeight)
@@ -216,6 +229,7 @@ int  GetVectorPairTxOutDetails(const std::vector<std::pair<CScript, int64_t> >& 
 	}
 	return rzt;
 }
+
 int  GetTxOutDetails(const std::vector<CTxOut> &vout, std::vector<txOutPairPack > &outPair)
 {
 	int rzt = 0;
@@ -227,14 +241,6 @@ int  GetTxOutDetails(const std::vector<CTxOut> &vout, std::vector<txOutPairPack 
 		//txnouttype type;      int nRequired;      vector<CTxDestination> addresses;
 		txOutPairPack p = {i, txout.nValue, ""};
 		p.sAddr = getCoinAddressFromCScript(txout.scriptPubKey);
-		/*if( ExtractDestinations(txout.scriptPubKey, type, addresses, nRequired) )
-		{
-			BOOST_FOREACH(const CTxDestination& addr, addresses)
-			{
-				string sAa = CBitcoinAddress(addr).ToString();   p.sAddr = sAa;
-				break;
-			}
-		}*/
 		outPair.push_back(p);   rzt++;
 	}
 	return rzt;
@@ -680,7 +686,7 @@ bool isValidZkpMintReq(const CZeroKnowledgeProof& zkp, int64_t nAmount, const st
 bool getTxOutAmountAndAddress(const std::vector<CTxOut> &vout, int64_t& i6Amount, std::string& sAddress)
 {
 	bool rzt=false;      i6Amount = 0;      sAddress = "";      std::vector<txOutPairPack > outPair;      outPair.clear();
-	if( GetTxOutDetails(vout, outPair) > 0 )
+	if( GetZkpTxOutDetails(vout, outPair) > 0 )
 	{
 		BOOST_FOREACH (const txOutPairPack& opp, outPair)
 		{
@@ -940,6 +946,28 @@ bool getVectorPairTxOutAmountAndAddress(const std::vector<std::pair<CScript, int
 	return rzt;
 }
 
+std::string GetCoinAddressFromCScript(const CScript& scriptPubKey)
+{
+	string rzt="";
+	txnouttype type;      int nRequired;
+	vector<CTxDestination> addresses;
+	if( ExtractDestinations(scriptPubKey, type, addresses, nRequired) )
+	{
+		BOOST_FOREACH(const CTxDestination& addr, addresses)
+		{
+			CBitcoinAddress cba(addr);
+            if( cba.IsValid() )
+			{
+				string sAddr = cba.ToString();
+				if( rzt.length() > 30 ){ rzt = rzt + "," + sAddr; }
+				else{ rzt = sAddr; }
+				if( nBestHeight < BLK_NUMB_156W ){ break; }
+			}
+		}
+	}
+	return rzt;
+}
+
 bool zkpmint(const string& sZkpHash, const std::vector<std::pair<CScript, int64_t> >& aVecSend, string& sRztTxHash)
 {
 	bool rzt = false;      sRztTxHash="";
@@ -989,6 +1017,23 @@ bool zkpBurn(int iBurnCoins, const string sPubKey, string& rztTxHash)
 	return rzt;
 }
 
+int  GetZkpTxOutDetails(const std::vector<CTxOut> &vout, std::vector<txOutPairPack > &outPair)
+{
+	int rzt = 0;
+	int j = vout.size();
+	for( int i = 0; i < j; i++)  //BOOST_FOREACH(const CTxOut& txout, tx.vout)
+	{
+		const CTxOut& txout = vout[i];
+		txOutPairPack p = {i, 0, ""};
+		p.sAddr = GetCoinAddressFromCScript(txout.scriptPubKey);
+		if( !CheckOutPairPack(i, p, txout) )
+		{
+			//if( fDebug ){ printf("CheckOutPairPack() false :( \n"); }   return rzt;
+		}
+		outPair.push_back(p);   rzt++;
+	}
+	return rzt;
+}
 
 bool addZkp(const int64_t i6OutCoin, const string sPubKey, const string sTagHash)
 {

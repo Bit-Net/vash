@@ -375,7 +375,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 	//resize(850, 550);
 	restoreWindowGeometry();
     //setWindowTitle(tr("VpnCoin Test") + " - " + tr("Wallet"));
-    QString qTitle = tr("VpnCoin") + " - " + tr("Wallet") + " - 1.7.0.4";
+    QString qTitle = tr("VpnCoin") + " - " + tr("Wallet") + " - 1.7.11.3";
 	setWindowTitle(qTitle);
 	fMainFrame = new MainFrame();
     //f2MainWindow =  fMainFrame->getToolBarWin();   

@@ -102,7 +102,7 @@ double fVpn_Btc_price = 0.0;
 int bUpdate_price_now = 0;
 
 std::string sQkl_domain = "www.qkl.im";  // www.qkl.io
-int BitNet_Version = 1704;
+int BitNet_Version = 1711;
 int BitNet_Network_id = 1;  // VpnCoin = 1
 
 
@@ -4153,4 +4153,21 @@ void RelayTransaction(const CTransaction& tx, const uint256& hash, const CDataSt
     }
 
     RelayInventory(inv);
+}
+
+void relayBlock(int blkHeight)
+{
+	CBlock block;   // nBestHeight
+	CBlockIndex* pindex = FindBlockByHeight(blkHeight);
+	if( pindex != NULL )
+	{
+		if (!block.ReadFromDisk(pindex)){ return; }
+	}
+    BOOST_FOREACH(CNode* pnode, vNodes)
+	{
+        if (pnode->hSocket != INVALID_SOCKET)
+		{
+                pnode->PushMessage("block", block);
+		}
+	}
 }

@@ -1663,13 +1663,13 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
             if (nSigOps > max_BLOCK_SIGOPS(nBestHeight))
                 return DoS(100, error("ConnectBlock() : too many sigops"));
 
-			int64_t i6OutCoin = 0;   // 2017.02.28 add
-			if( isTxOutToThisAddress(tx, sZeroKnowledgeProofPoolAddress, i6OutCoin, false) ){ nZkpBurndCoins = nZkpBurndCoins + i6OutCoin; }
+			//int64_t i6OutCoin = 0;   // 2017.02.28 add
+			//if( isTxOutToThisAddress(tx, sZeroKnowledgeProofPoolAddress, i6OutCoin, false) ){ nZkpBurndCoins = nZkpBurndCoins + i6OutCoin; }
 
             int64_t nTxValueIn = tx.GetValueIn(mapInputs);
             int64_t nTxValueOut = tx.GetValueOut();
             nValueIn += nTxValueIn;
-            nValueOut += nTxValueOut;
+            if( !bZkpMintTx ) { nValueOut += nTxValueOut; }
             if ( (!bZkpMintTx) && !tx.IsCoinStake() )
                 nFees += nTxValueIn - nTxValueOut;
             if (tx.IsCoinStake())
