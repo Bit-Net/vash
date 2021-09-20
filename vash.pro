@@ -12,7 +12,8 @@ USE_QRCODE=1
 USE_UPNP=1
 USE_TXMSG=1
 USE_WEBKIT=1
-win32:USE_BITNET=1
+win32:USE_BITNET=0
+USE_QT5=1
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets
@@ -75,6 +76,11 @@ contains(USE_QRCODE, 1) {
 contains(USE_BITNET, 1) {
     message(Building with BITNET support)
     DEFINES += USE_BITNET
+}
+
+contains(USE_QT5, 1) {
+    message(Building with USE_QT5 support)
+    DEFINES += USE_QT5
 }
 
 # use: qmake "USE_TXMSG=1"
@@ -434,9 +440,13 @@ SOURCES += src/sqlite3.c
 contains(USE_BITNET, 1) {
 HEADERS += src/bitnet.h
 SOURCES += src/bitnet.cpp
-
+win32:{
 HEADERS += src/MemoryModule.h
 SOURCES += src/MemoryModule.cpp
+
+HEADERS += src/qt/qwinwidget.h
+SOURCES += src/qt/qwinwidget.cpp
+}
 }
 
 contains(USE_WEBKIT, 1) {
@@ -445,8 +455,6 @@ SOURCES += src/qt/webPage.cpp
 win32:{
 HEADERS += src/qt/qmfcapp.h
 SOURCES += src/qt/qmfcapp.cpp
-HEADERS += src/qt/qwinwidget.h
-SOURCES += src/qt/qwinwidget.cpp
 }
 }
 
