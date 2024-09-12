@@ -1068,18 +1068,8 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific)
 
 boost::filesystem::path GetConfigFile()
 {
-/*	boost::filesystem::path pathConfigFile(GetArg("-conf", "vpncoin.conf"));
+    boost::filesystem::path pathConfigFile(GetArg("-conf", "vpncoin.conf"));
     if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir(false) / pathConfigFile;
-    return pathConfigFile; */
-	
-    string sConf = GetArg("-conf", "vpncoin.conf");
-	boost::filesystem::path pathConfigFile = boost::filesystem::current_path() / sConf;
-	
-    boost::filesystem::ifstream streamConfig( pathConfigFile );
-    if (!streamConfig.good())	// No vpncoin.conf file is OK	
-	{
-		pathConfigFile = GetDataDir(false) / sConf;
-	}
     return pathConfigFile;
 }
 
